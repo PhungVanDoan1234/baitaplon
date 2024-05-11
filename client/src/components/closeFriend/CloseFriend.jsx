@@ -1,6 +1,6 @@
 import "./closeFriend.css";
 
-export default function CloseFriend({ user }) {
+function CloseFriend({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   return (
     <li className="sidebarFriend">
@@ -9,3 +9,5 @@ export default function CloseFriend({ user }) {
     </li>
   );
 }
+
+export default CloseFriend;

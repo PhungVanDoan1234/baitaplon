@@ -26,6 +26,10 @@
   list-style: none;
 }
 
+.sidebarList > a {
+  color: rgb(36, 34, 34);
+}
+
 .sidebarListItem {
   display: flex;
   align-items: center;
@@ -54,4 +58,8 @@
   list-style: none;
 }
 
-
+.sidebarShowAll {
+  margin: 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+}

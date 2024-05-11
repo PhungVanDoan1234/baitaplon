@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./register.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Alert } from "react-bootstrap";
+import SignUpAndIn from "../../components/signUpAndIn/SignUpAndIn";
 
 export default function Register() {
   const username = useRef();
@@ -10,11 +12,12 @@ export default function Register() {
   const password = useRef();
   const passwordAgain = useRef();
   const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
 
   const handleClick = async (e) => {
     e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
-      passwordAgain.current.setCustomValidity("Password don't match");
+      setShowError(true);
     } else {
       const user = {
         username: username.current.value,
@@ -31,57 +34,49 @@ export default function Register() {
   };
 
   return (
-    <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">CodeCuaDoan</h3>
-          <span className="loginDesc">
-            Connect with friends and the world around you on CodeCuaDoan.
-          </span>
-        </div>
-        <div className="loginRight">
-          <form className="loginBox" onSubmit={handleClick}>
-            <input
-              className="loginInput"
-              placeholder="Username"
-              type="text"
-              required
-              ref={username}
-            />
-            <input
-              className="loginInput"
-              placeholder="Email"
-              type="email"
-              required
-              ref={email}
-            />
-            <input
-              className="loginInput"
-              placeholder="Password"
-              type="password"
-              required
-              ref={password}
-              minLength={6}
-            />
-            <input
-              className="loginInput"
-              placeholder="Password Again"
-              type="password"
-              required
-              ref={passwordAgain}
-            />
-            <button className="loginButton" type="submit">
-              Sign Up
-            </button>
-            <Link
-              to="http://localhost:3000/login"
-              style={{ marginLeft: "30%" }}
-            >
-              <button className="loginRegisterButton">Log into Account</button>
-            </Link>
-          </form>
-        </div>
-      </div>
-    </div>
+    <>
+      <SignUpAndIn>
+        <form className="registerBox" onSubmit={handleClick}>
+          {showError && <Alert variant={"warning"}>Password don't match</Alert>}
+          <input
+            className="registerInput"
+            placeholder="Username"
+            type="text"
+            required
+            ref={username}
+          />
+          <input
+            className="registerInput"
+            placeholder="Email"
+            type="email"
+            required
+            ref={email}
+          />
+          <input
+            className="registerInput"
+            placeholder="Password"
+            type="password"
+            required
+            ref={password}
+            minLength={6}
+            onChange={() => setShowError(false)}
+          />
+          <input
+            className="registerInput"
+            placeholder="Password Again"
+            type="password"
+            required
+            ref={passwordAgain}
+            onChange={() => setShowError(false)}
+          />
+          <button className="registerButton" type="submit">
+            Sign Up
+          </button>
+          <Link to="http://localhost:3000/login" style={{ marginLeft: "30%" }}>
+            <button className="loginRegisterButton">Log into Account</button>
+          </Link>
+        </form>
+      </SignUpAndIn>
+    </>
   );
 }

@@ -55,13 +55,32 @@ router.get("/", async (req, res) => {
   }
 });
 
+//get all user
+router.get("/allUser/:id", async (req, res) => {
+  try {
+    const users = await User.find({});
+    const securityUser = users
+      .map((user) => {
+        if (String(user._id) !== String(req.params.id)) {
+          const { password, updatedAt, ...other } = user._doc;
+          return other;
+        }
+        return null;
+      })
+      .filter((user) => user !== null);
+    res.status(200).json(securityUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //get friends
 router.get("/friends/:userId", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     const friends = await Promise.all(
-      user.followings.map((friendId) => {
-        return User.findById(friendId);
+      user.followings.map(async (friendId) => {
+        return await User.findById(friendId);
       })
     );
     let friendList = [];

@@ -11,14 +11,18 @@ import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import Messenger from "./pages/messenger/Messenger";
 import { AuthContext } from "./context/AuthContext";
+import Topbar from "./components/topbar/Topbar";
+import Feed from "./components/feed/Feed";
+import OtherUser from "./pages/otherUser/OtherUser";
+import FollowUser from "./pages/followUser/FollowUser";
 
 function App() {
   const { user } = useContext(AuthContext);
-  console.log(!!user);
   return (
     <Router>
       <Routes>
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/register"
@@ -28,7 +32,21 @@ function App() {
           path="/messenger"
           element={!user ? <Navigate to="/" /> : <Messenger />}
         />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route
+          path="/profile/:username"
+          element={user ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/feedPage"
+          element={
+            <>
+              <Topbar />
+              <Feed />
+            </>
+          }
+        ></Route>
+        <Route path="/otherUser" element={<OtherUser />}></Route>
+        <Route path="/followUser" element={<FollowUser />}></Route>
       </Routes>
     </Router>
   );
@@ -36,5 +54,6 @@ function App() {
 
 export default App;
 
+/* <Route path="/profile/:username" element={<Profile />} /> */
 /* <Route path="/register" element={<Register />} /> */
 /* <Route path="/login" element={<Login />} /> */

@@ -13,6 +13,7 @@ const messagesRoute = require("./routes/messages");
 const cors = require("cors");
 const router = express.Router();
 const path = require("path");
+const fs = require("fs");
 
 const io = require("socket.io")(8900, {
   cors: {
@@ -110,6 +111,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
     return res.status(200).json("File uploaded successfully");

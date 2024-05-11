@@ -22,6 +22,52 @@ export default function Profile() {
     fetchUser();
   }, [username]);
 
+  const handleChangeAvatar = async (e) => {
+    const newUser = {
+      userId: user._id,
+    };
+
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newUser.profilePicture = fileName;
+
+      try {
+        await axios.post("http://localhost:8800/api/upload", data);
+        await axios.put(`http://localhost:8800/api/users/${user._id}`, newUser);
+        setUser((prevUser) => ({ ...prevUser, profilePicture: fileName }));
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handleChangeCover = async (e) => {
+    const newUser = {
+      userId: user._id,
+    };
+
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newUser.coverPicture = fileName;
+
+      try {
+        await axios.post("http://localhost:8800/api/upload", data);
+        await axios.put(`http://localhost:8800/api/users/${user._id}`, newUser);
+        setUser((prevUser) => ({ ...prevUser, coverPicture: fileName }));
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <>
       <Topbar />
@@ -30,24 +76,44 @@ export default function Profile() {
         <div className="profileRight">
           <div className="profileRightTop">
             <div className="profileCover">
-              <img
-                className="profileCoverImg"
-                src={
-                  user && user.coverPicture
-                    ? user.coverPicture
-                    : `${PF}person/noCover.png`
-                }
-                alt=""
-              />
-              <img
-                className="profileUserImg"
-                src={
-                  user && user.coverPicture
-                    ? user.coverPicture
-                    : `${PF}person/noAvatar.png`
-                }
-                alt=""
-              />
+              {/* Cover */}
+              <label htmlFor="fileCover">
+                <img
+                  className="profileCoverImg"
+                  src={
+                    user && user?.coverPicture
+                      ? PF + user?.coverPicture
+                      : `${PF}person/noCover.png`
+                  }
+                  alt=""
+                />
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  id="fileCover"
+                  accept=".png, .jpeg, .jpg"
+                  onChange={handleChangeCover}
+                />
+              </label>
+              {/* Avartar */}
+              <label htmlFor="fileAvatar">
+                <img
+                  className="profileUserImg"
+                  src={
+                    user && user?.profilePicture
+                      ? PF + user?.profilePicture
+                      : `${PF}person/noAvatar.png`
+                  }
+                  alt=""
+                />
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  id="fileAvatar"
+                  accept=".png, .jpeg, .jpg"
+                  onChange={handleChangeAvatar}
+                />
+              </label>
             </div>
             <div className="profileInfo">
               {user && (

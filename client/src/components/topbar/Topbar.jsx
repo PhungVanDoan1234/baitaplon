@@ -42,8 +42,10 @@ export default function Topbar() {
         </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
-            <Person />
-            <span className="topbarIconBadge">1</span>
+            <Link to="/followUser">
+              <Person />
+              <span className="topbarIconBadge">1</span>
+            </Link>
           </div>
           <div className="topbarIconItem">
             <Link
@@ -60,7 +62,6 @@ export default function Topbar() {
           </div>
           <div className="topbarIconItem" onClick={handleLogout}>
             <Logout />
-            {/* <span className="topbarIconBadge">1</span> */}
           </div>
         </div>
         <Link to={`/profile/${user.username}`}>
@@ -74,7 +75,6 @@ export default function Topbar() {
             className="topbarImg"
           />
         </Link>
-        {/* <img src="/assets/person/1.jpeg" alt="" className="topbarImg" /> */}
       </div>
     </div>
   );
