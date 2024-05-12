@@ -1,4 +1,4 @@
-import { memo, useContext, useRef } from "react";
+import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
 import { AuthContext } from "../../context/AuthContext";

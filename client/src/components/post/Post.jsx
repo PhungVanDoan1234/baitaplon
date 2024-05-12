@@ -7,6 +7,7 @@ import { Cancel, MoreVert } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 import UpdatePost from "../settingsPost/updatePost/UpdatePost";
 import { Dropdown } from "react-bootstrap";
+import CommentsBox from "../commentsBox/CommentsBox";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -15,6 +16,9 @@ export default function Post({ post }) {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const { user: currentUser } = useContext(AuthContext);
   const [showUpdate, setShowUpdate] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [dataChild, setDataChild] = useState([]);
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
@@ -57,6 +61,34 @@ export default function Post({ post }) {
       console.log(err);
     }
   };
+
+  const handleShowComment = () => {
+    if (showComments) {
+      setShowComments(false);
+    } else {
+      setShowComments(true);
+    }
+  };
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8800/api/comments/allComments/" + post._id
+        );
+        setComments(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (post) getComments();
+  }, [post]);
+
+  const handleDataFormChild = (data) => {
+    setDataChild(data);
+  };
+
+  console.log(dataChild);
 
   return (
     <div className="post">
@@ -122,15 +154,17 @@ export default function Post({ post }) {
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} comments</span>
+            <span className="postCommentText" onClick={handleShowComment}>
+              {dataChild.length !== 0
+                ? dataChild.length + " comments"
+                : comments.length + " comments"}
+            </span>
           </div>
         </div>
+        {showComments && (
+          <CommentsBox post={post} sendDataToParent={handleDataFormChild} />
+        )}
       </div>
     </div>
   );
 }
-
-/* {showUpdate && <Share />} */
-/* {currentUser._id === post.userId && (
-              <SettingsPost id_post={post._id} showUpdated={true} />
-            )} */
