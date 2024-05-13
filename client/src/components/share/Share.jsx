@@ -10,12 +10,15 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import "./share.css";
 
-export default function Share() {
+export default function Share({ sendDataToChildFromParent }) {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
   let userData = JSON.parse(localStorage.getItem("user"));
+  let userPostData = JSON.parse(localStorage.getItem("userPost"));
+
+  console.log(userPostData);
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -37,11 +40,22 @@ export default function Share() {
       }
     }
     try {
-      await axios.post("http://localhost:8800/api/posts", newPost);
-      window.location.reload();
+      const res = await axios.post("http://localhost:8800/api/posts", newPost);
+      userPostData = [res.data, ...userPostData];
+      localStorage.setItem("userPost", JSON.stringify(userPostData));
+      sendDataToChildFromParent(userPostData);
+      setFile(null);
+      desc.current.value = "";
+      console.log(userPostData);
     } catch (error) {
       console.log(error);
     }
+    alert(
+      ":)) =>> year year 😘😘😘 tích cực băng bài nhé !!! \n" +
+        ":) Mà đừng xóa bài mới đăng cho đến khi bạn chuyển trang nhé 😆😆😆 \n" +
+        ":)) ....à thì vẫn xóa được nhưng mà tôi muốn bạn xem lại bài đăng của mình trước khi nó bị xóa thế thôi 😜😜😜 \n" +
+        ":)) nếu muốn xem đã bị xóa chưa thì vào trang profile mà xem á ❤❤❤ "
+    );
   };
 
   return (

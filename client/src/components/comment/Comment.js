@@ -1,6 +1,6 @@
 import { format } from "timeago.js";
 import "./comment.css";
-import { memo, useContext, useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Delete, Update } from "@mui/icons-material";
 import { getUser } from "../../apiCall";
@@ -9,13 +9,10 @@ function Comment({ comment, onDelete, onUpdate }) {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const { user: currentUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
-  const InputUpdate = useRef();
 
   useEffect(() => {
     getUser(comment.userId, setUser);
   }, [comment]);
-
-  console.log(InputUpdate?.current?.value);
 
   return (
     <div className="comment" key={comment?._id}>

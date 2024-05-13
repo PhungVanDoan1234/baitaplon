@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./register.css";
 import { useRef, useState } from "react";
 import { Alert } from "react-bootstrap";
 import SignUpAndIn from "../../components/signUpAndIn/SignUpAndIn";
+import { register } from "../../apiCall";
 
 export default function Register() {
   const username = useRef();
@@ -24,12 +24,7 @@ export default function Register() {
         email: email.current.value,
         password: password.current.value,
       };
-      try {
-        await axios.post("http://localhost:8800/api/auth/register", user);
-        navigate("/login");
-      } catch (err) {
-        console.log(err);
-      }
+      register(user, navigate);
     }
   };
 

@@ -9,8 +9,8 @@ import { Dropdown } from "react-bootstrap";
 import CommentsBox from "../commentsBox/CommentsBox";
 import { getUser, likePost, getAllComment, deletePost } from "../../apiCall";
 
-export default function Post({ post }) {
-  const [like, setLike] = useState(post.likes.length);
+export default function Post({ post, sendDataToChildFromParent }) {
+  const [like, setLike] = useState(post?.likes?.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
@@ -21,17 +21,18 @@ export default function Post({ post }) {
   const [dataChild, setDataChild] = useState([]);
   const [dataChildUpdated, setDataChildUpdated] = useState([]);
   let userData = JSON.parse(localStorage.getItem("user"));
+  let userPostData = JSON.parse(localStorage.getItem("userPost"));
 
   useEffect(() => {
-    setIsLiked(post.likes.includes(currentUser._id));
-  }, [currentUser._id, post.likes]);
+    setIsLiked(post?.likes?.includes(currentUser._id));
+  }, [currentUser._id, post?.likes]);
 
   useEffect(() => {
-    getUser(post.userId, setUser);
-  }, [post.userId]);
+    getUser(post?.userId, setUser);
+  }, [post?.userId]);
 
   const likeHandler = () => {
-    likePost(currentUser._id, post._id);
+    likePost(currentUser._id, post?._id);
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
@@ -42,7 +43,12 @@ export default function Post({ post }) {
   };
 
   const handleDeletePost = async () => {
-    deletePost(post._id, currentUser._id);
+    deletePost(post?._id, currentUser._id);
+    userPostData = userPostData.filter(
+      (userPost) => userPost._id !== post?._id
+    );
+    localStorage.setItem("userPost", JSON.stringify(userPostData));
+    sendDataToChildFromParent(userPostData);
   };
 
   const handleShowComment = () => {
@@ -54,7 +60,7 @@ export default function Post({ post }) {
   };
 
   useEffect(() => {
-    if (post) getAllComment(post._id, setComments);
+    if (post) getAllComment(post?._id, setComments);
   }, [post]);
 
   const handleDataFormChild = (data) => {
@@ -66,21 +72,20 @@ export default function Post({ post }) {
   };
 
   useMemo(() => {
-    if (dataChildUpdated?.id_post === post._id) {
+    if (dataChildUpdated._id === post?._id) {
       if (dataChildUpdated.desc) post.desc = dataChildUpdated.desc;
       if (dataChildUpdated.img) post.img = dataChildUpdated?.img;
       setShowUpdate(false);
     }
   }, [dataChildUpdated, post]);
 
-  console.log(userData.profilePicture);
-
   return (
     <div className="post">
       {showUpdate && (
         <UpdatePost
-          id_post={post._id}
+          id_post={post?._id}
           sendDataToParentUpdate={handleDataFormChildUpdated}
+          setShowUpdate={setShowUpdate}
         >
           <Cancel onClick={() => setShowUpdate(false)} />
         </UpdatePost>
@@ -96,10 +101,10 @@ export default function Post({ post }) {
               />
             </Link>
             <span className="postUsername">{user.username}</span>
-            <span className="postDate">{format(post.createdAt)}</span>
+            <span className="postDate">{format(post?.createdAt)}</span>
           </div>
           <div className="postTopRight">
-            {currentUser._id === post.userId && (
+            {currentUser._id === post?.userId && (
               <Dropdown>
                 <Dropdown.Toggle variant="light">
                   <MoreVert />
@@ -119,7 +124,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={PF + post.img} alt="" />
+          <img className="postImg" src={PF + post?.img} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

@@ -33,6 +33,15 @@ export const followUser = async (followed, userId, currentUserId, dispatch) => {
   }
 };
 
+export const register = async (user, navigate) => {
+  try {
+    await axios.post("http://localhost:8800/api/auth/register", user);
+    navigate("/login");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getAllUserOther = async (setUserOthers, currentUserId) => {
   try {
     const useOther = await axios.get(
@@ -165,7 +174,6 @@ export const deletePost = async (postId, userId) => {
     await axios.delete(`http://localhost:8800/api/posts/${postId}`, {
       data: { userId: userId },
     });
-    window.location.reload();
   } catch (err) {
     console.log(err);
   }
@@ -174,7 +182,14 @@ export const deletePost = async (postId, userId) => {
 export const updatePost = async (postId, newPost) => {
   try {
     await axios.put(`http://localhost:8800/api/posts/${postId}`, newPost);
-    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createPost = async (newPost) => {
+  try {
+    await axios.post("http://localhost:8800/api/posts", newPost);
   } catch (error) {
     console.log(error);
   }

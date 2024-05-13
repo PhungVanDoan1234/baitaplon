@@ -8,17 +8,42 @@ import { getPost } from "../../apiCall";
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
+  const [dataChild, setDataChild] = useState([]);
+  localStorage.setItem("userPost", JSON.stringify(posts));
+  let userPostData = JSON.parse(localStorage.getItem("userPost"));
+
+  //dataChildOfFeed
+  const [dataChildOfShare, setdataChildOfShare] = useState([]);
 
   useEffect(() => {
     getPost(username, user._id, setPosts);
   }, [username, user._id]);
 
+  const handleDataFormChild = (data) => {
+    setDataChild(data);
+  };
+  const handleDataFormChildShare = (data) => {
+    setdataChildOfShare(data);
+  };
+
+  console.log(dataChildOfShare);
+
+  useMemo(() => {
+    if (dataChild?.length > 0) setPosts([...dataChild]);
+    if (dataChildOfShare?.length > 0) setPosts([...dataChildOfShare]);
+  }, [dataChild, dataChildOfShare]);
   return (
     <div className="feed">
       <div className="feedWrapper">
-        {(!username || username === user.username) && <Share />}
-        {posts.map((p) => (
-          <Post key={p._id} post={p} />
+        {(!username || username === user.username) && (
+          <Share sendDataToChildFromParent={handleDataFormChildShare} />
+        )}
+        {userPostData.map((p) => (
+          <Post
+            key={p._id}
+            post={p}
+            sendDataToChildFromParent={handleDataFormChild}
+          />
         ))}
       </div>
     </div>

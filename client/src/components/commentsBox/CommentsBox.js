@@ -59,6 +59,13 @@ function CommentsBox({ post, sendDataToParent }) {
     });
   }, [comments]);
 
+  const handleKeyEnter = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
     <div className="commentBox">
       <div className="commentBoxWrapper">
@@ -82,6 +89,7 @@ function CommentsBox({ post, sendDataToParent }) {
             className="commentsMessageInput"
             placeholder="write something..."
             onChange={(e) => setNewComent(e.target.value)}
+            onKeyDown={handleKeyEnter}
             value={newComment}
             ref={textComment}
           ></textarea>

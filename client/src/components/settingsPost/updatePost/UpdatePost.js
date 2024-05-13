@@ -1,19 +1,21 @@
-import { useContext, useMemo, useRef, useState } from "react";
-import axios from "axios";
+import { useContext, useRef, useState } from "react";
 import { PermMedia, Cancel } from "@mui/icons-material";
 import { AuthContext } from "../../../context/AuthContext";
 import "./updatePost.css";
-import { upload } from "../../../apiCall";
+import { updatePost, upload } from "../../../apiCall";
+import axios from "axios";
 
 export default function UpdatePost({
   id_post,
   children,
+  setShowUpdate,
   sendDataToParentUpdate,
 }) {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
+  let userPostData = JSON.parse(localStorage.getItem("userPost"));
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -27,18 +29,19 @@ export default function UpdatePost({
       data.append("name", fileName);
       data.append("file", file);
       newPost.img = fileName;
-      try {
-        await axios.post("http://localhost:8800/api/upload", data);
-      } catch (err) {
-        console.log(err);
-      }
+      upload(data);
     }
     try {
-      const res = await axios.put(
-        `http://localhost:8800/api/posts/${id_post}`,
-        newPost
-      );
-      sendDataToParentUpdate((res.data = { ...res.data, id_post }));
+      updatePost(id_post, newPost);
+      userPostData.map((userPost) => {
+        if (userPost._id === id_post) {
+          if (newPost.img) userPost.img = newPost.img;
+          if (newPost.desc) userPost.desc = newPost.desc;
+          sendDataToParentUpdate(userPost);
+        }
+        localStorage.setItem("userPost", JSON.stringify(userPostData));
+        setShowUpdate(false);
+      });
     } catch (error) {
       console.log(error);
     }
