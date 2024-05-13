@@ -1,9 +1,9 @@
 import { format } from "timeago.js";
 import "./comment.css";
 import { memo, useContext, useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { Delete, Update } from "@mui/icons-material";
+import { getUser } from "../../apiCall";
 
 function Comment({ comment, onDelete, onUpdate }) {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
@@ -12,13 +12,7 @@ function Comment({ comment, onDelete, onUpdate }) {
   const InputUpdate = useRef();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `http://localhost:8800/api/users?userId=${comment.userId}`
-      );
-      setUser(res.data);
-    };
-    fetchUser();
+    getUser(comment.userId, setUser);
   }, [comment]);
 
   console.log(InputUpdate?.current?.value);

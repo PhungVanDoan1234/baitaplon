@@ -10,11 +10,20 @@ import {
   Event,
   School,
 } from "@mui/icons-material";
-import { Users } from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { getAllUserOther } from "../../apiCall";
 
 export default function Sidebar() {
+  const [userOthers, setUserOthers] = useState([]);
+  const { user: currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    getAllUserOther(setUserOthers, currentUser._id);
+  }, [currentUser]);
+
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -74,17 +83,18 @@ export default function Sidebar() {
             </li>
           </Link>
         </ul>
-        {/* <button className="sidebarButton">Show More</button> */}
         <hr className="sidebarHr" />
         <Link to="/otherUser">
-          <div className="sidebarShowAll">Show all</div>
+          <div className="sidebarShowAll"></div>
         </Link>
         <ul className="sidebarFriendList">
-          {Users.map((u) => (
-            <CloseFriend key={u.id} user={u} />
+          {userOthers.slice(0, 8).map((u) => (
+            <CloseFriend key={u._id} user={u} />
           ))}
         </ul>
       </div>
     </div>
   );
 }
+
+/* <button className="sidebarButton">Show More</button> */

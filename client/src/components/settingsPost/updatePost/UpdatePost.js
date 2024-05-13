@@ -1,10 +1,15 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { PermMedia, Cancel } from "@mui/icons-material";
 import { AuthContext } from "../../../context/AuthContext";
 import "./updatePost.css";
+import { upload } from "../../../apiCall";
 
-export default function UpdatePost({ id_post, children }) {
+export default function UpdatePost({
+  id_post,
+  children,
+  sendDataToParentUpdate,
+}) {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const desc = useRef();
@@ -22,7 +27,6 @@ export default function UpdatePost({ id_post, children }) {
       data.append("name", fileName);
       data.append("file", file);
       newPost.img = fileName;
-      console.log(newPost);
       try {
         await axios.post("http://localhost:8800/api/upload", data);
       } catch (err) {
@@ -30,8 +34,11 @@ export default function UpdatePost({ id_post, children }) {
       }
     }
     try {
-      await axios.put(`http://localhost:8800/api/posts/${id_post}`, newPost);
-      window.location.reload();
+      const res = await axios.put(
+        `http://localhost:8800/api/posts/${id_post}`,
+        newPost
+      );
+      sendDataToParentUpdate((res.data = { ...res.data, id_post }));
     } catch (error) {
       console.log(error);
     }

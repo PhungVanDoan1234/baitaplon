@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { format } from "timeago.js";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import "./post.css";
 import { Cancel, MoreVert } from "@mui/icons-material";
@@ -8,6 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 import UpdatePost from "../settingsPost/updatePost/UpdatePost";
 import { Dropdown } from "react-bootstrap";
 import CommentsBox from "../commentsBox/CommentsBox";
+import { getUser, likePost, getAllComment, deletePost } from "../../apiCall";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -19,29 +19,19 @@ export default function Post({ post }) {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   const [dataChild, setDataChild] = useState([]);
+  const [dataChildUpdated, setDataChildUpdated] = useState([]);
+  let userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
   }, [currentUser._id, post.likes]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `http://localhost:8800/api/users?userId=${post.userId}`
-      );
-      setUser(res.data);
-    };
-    fetchUser();
+    getUser(post.userId, setUser);
   }, [post.userId]);
 
   const likeHandler = () => {
-    try {
-      axios.put("http://localhost:8800/api/posts/" + post._id + "/like", {
-        userId: currentUser._id,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    likePost(currentUser._id, post._id);
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
@@ -52,14 +42,7 @@ export default function Post({ post }) {
   };
 
   const handleDeletePost = async () => {
-    try {
-      await axios.delete(`http://localhost:8800/api/posts/${post._id}`, {
-        data: { userId: user._id },
-      });
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
-    }
+    deletePost(post._id, currentUser._id);
   };
 
   const handleShowComment = () => {
@@ -71,29 +54,34 @@ export default function Post({ post }) {
   };
 
   useEffect(() => {
-    const getComments = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:8800/api/comments/allComments/" + post._id
-        );
-        setComments(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (post) getComments();
+    if (post) getAllComment(post._id, setComments);
   }, [post]);
 
   const handleDataFormChild = (data) => {
     setDataChild(data);
   };
 
-  console.log(dataChild);
+  const handleDataFormChildUpdated = (dataUpdated) => {
+    setDataChildUpdated(dataUpdated);
+  };
+
+  useMemo(() => {
+    if (dataChildUpdated?.id_post === post._id) {
+      if (dataChildUpdated.desc) post.desc = dataChildUpdated.desc;
+      if (dataChildUpdated.img) post.img = dataChildUpdated?.img;
+      setShowUpdate(false);
+    }
+  }, [dataChildUpdated, post]);
+
+  console.log(userData.profilePicture);
 
   return (
     <div className="post">
       {showUpdate && (
-        <UpdatePost id_post={post._id}>
+        <UpdatePost
+          id_post={post._id}
+          sendDataToParentUpdate={handleDataFormChildUpdated}
+        >
           <Cancel onClick={() => setShowUpdate(false)} />
         </UpdatePost>
       )}
@@ -103,11 +91,7 @@ export default function Post({ post }) {
             <Link to={`profile/${user.username}`}>
               <img
                 className="postProfileImg"
-                src={
-                  user.profilePicture
-                    ? PF + user.profilePicture
-                    : PF + "person/noAvatar.png"
-                }
+                src={PF + userData.profilePicture}
                 alt=""
               />
             </Link>

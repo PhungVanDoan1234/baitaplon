@@ -56,3 +56,8 @@
   background-color: teal;
   color: white;
 }
+
+.onTop {
+  width: 100px;
+  margin: 0 10px 0 auto;
+}

@@ -11,6 +11,7 @@ export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const [user, setUser] = useState();
   const username = useParams().username;
+  let userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -39,6 +40,8 @@ export default function Profile() {
         await axios.post("http://localhost:8800/api/upload", data);
         await axios.put(`http://localhost:8800/api/users/${user._id}`, newUser);
         setUser((prevUser) => ({ ...prevUser, profilePicture: fileName }));
+        userData.profilePicture = fileName;
+        localStorage.setItem("user", JSON.stringify(userData));
       } catch (err) {
         console.log(err);
       }

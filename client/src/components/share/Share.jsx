@@ -8,7 +8,6 @@ import {
   Cancel,
 } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
-
 import "./share.css";
 
 export default function Share() {
@@ -16,6 +15,7 @@ export default function Share() {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
+  let userData = JSON.parse(localStorage.getItem("user"));
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -50,11 +50,7 @@ export default function Share() {
         <div className="shareTop">
           <img
             className="shareProfileImg"
-            src={
-              user.profilePicture
-                ? PF + user.profilePicture
-                : PF + "person/noAvatar.png"
-            }
+            src={PF + userData.profilePicture}
             alt=""
           />
           <input
