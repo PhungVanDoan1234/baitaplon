@@ -2,44 +2,23 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CardUser from "../../components/cardUser/CardUser";
 import Topbar from "../../components/topbar/Topbar";
-import axios from "axios";
 import "./followUser.css";
+import { followUser, getfriendList } from "../../apiCall";
 
 function FollowUser() {
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   useEffect(() => {
-    const getUserOther = async () => {
-      try {
-        const useOther = await axios.get(
-          `http://localhost:8800/api/users/friends/` + currentUser._id
-        );
-        setFriends(useOther.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserOther();
+    getfriendList(currentUser._id, setFriends);
   }, [currentUser]);
 
-  const handleClick = async (friend) => {
-    try {
-      if (currentUser.followings.includes(friend?._id)) {
-        await axios.put(
-          "http://localhost:8800/api/users/" + friend._id + "/unfollow",
-          { userId: currentUser._id }
-        );
-        dispatch({ type: "UNFOLLOW", payload: friend._id });
-      } else {
-        await axios.put(
-          "http://localhost:8800/api/users/" + friend._id + "/follow",
-          { userId: currentUser._id }
-        );
-        dispatch({ type: "FOLLOW", payload: friend._id });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const handleClick = (friend) => {
+    followUser(
+      currentUser.followings.includes(friend?._id),
+      friend._id,
+      currentUser._id,
+      dispatch
+    );
   };
 
   return (

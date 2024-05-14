@@ -85,7 +85,7 @@ export default function Sidebar() {
         </ul>
         <hr className="sidebarHr" />
         <Link to="/otherUser">
-          <div className="sidebarShowAll"></div>
+          <div className="sidebarShowAll">Other user</div>
         </Link>
         <ul className="sidebarFriendList">
           {userOthers.slice(0, 8).map((u) => (

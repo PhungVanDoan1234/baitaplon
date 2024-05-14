@@ -71,6 +71,52 @@ export const getfriendList = async (userId, setFriends) => {
   }
 };
 
+export const getUserByName = async (username, setUser) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:8800/api/users?username=${username}`
+    );
+    setUser(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateAvatar = async (
+  userId,
+  newUser,
+  fileName,
+  userData,
+  setUser,
+  data
+) => {
+  try {
+    upload(data);
+    await axios.put(`http://localhost:8800/api/users/${userId}`, newUser);
+    setUser((prevUser) => ({ ...prevUser, profilePicture: fileName }));
+    userData.profilePicture = fileName;
+    localStorage.setItem("user", JSON.stringify(userData));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const udpateCoverPicture = async (
+  userId,
+  newUser,
+  fileName,
+  setUser,
+  data
+) => {
+  try {
+    upload(data);
+    await axios.put(`http://localhost:8800/api/users/${userId}`, newUser);
+    setUser((prevUser) => ({ ...prevUser, coverPicture: fileName }));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // comment call api
 export const getComments = async (postId, setComments) => {
   try {
@@ -187,9 +233,17 @@ export const updatePost = async (postId, newPost) => {
   }
 };
 
-export const createPost = async (newPost) => {
+export const createPost = async (
+  newPost,
+  userPostData,
+  sendDataToChildFromParent
+) => {
   try {
-    await axios.post("http://localhost:8800/api/posts", newPost);
+    const res = await axios.post("http://localhost:8800/api/posts", newPost);
+    userPostData = [res.data, ...userPostData];
+    localStorage.setItem("userPost", JSON.stringify(userPostData));
+    sendDataToChildFromParent(userPostData);
+    console.log(userPostData);
   } catch (error) {
     console.log(error);
   }
@@ -199,6 +253,7 @@ export const createPost = async (newPost) => {
 export const upload = async (data) => {
   try {
     await axios.post("http://localhost:8800/api/upload", data);
+    console.log("updateSuccess");
   } catch (err) {
     console.log(err);
   }

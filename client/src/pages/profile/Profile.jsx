@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
 import "./profile.css";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
+import { InsertPhoto, Person } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { getUserByName, udpateCoverPicture, updateAvatar } from "../../apiCall";
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
@@ -14,18 +16,12 @@ export default function Profile() {
   let userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `http://localhost:8800/api/users?username=${username}`
-      );
-      setUser(res.data);
-    };
-    fetchUser();
+    getUserByName(username, setUser);
   }, [username]);
 
   const handleChangeAvatar = async (e) => {
     const newUser = {
-      userId: user._id,
+      userId: user?._id,
     };
 
     if (e.target.files.length > 0) {
@@ -35,22 +31,13 @@ export default function Profile() {
       data.append("name", fileName);
       data.append("file", file);
       newUser.profilePicture = fileName;
-
-      try {
-        await axios.post("http://localhost:8800/api/upload", data);
-        await axios.put(`http://localhost:8800/api/users/${user._id}`, newUser);
-        setUser((prevUser) => ({ ...prevUser, profilePicture: fileName }));
-        userData.profilePicture = fileName;
-        localStorage.setItem("user", JSON.stringify(userData));
-      } catch (err) {
-        console.log(err);
-      }
+      updateAvatar(user?._id, newUser, fileName, userData, setUser, data);
     }
   };
 
   const handleChangeCover = async (e) => {
     const newUser = {
-      userId: user._id,
+      userId: user?._id,
     };
 
     if (e.target.files.length > 0) {
@@ -60,14 +47,7 @@ export default function Profile() {
       data.append("name", fileName);
       data.append("file", file);
       newUser.coverPicture = fileName;
-
-      try {
-        await axios.post("http://localhost:8800/api/upload", data);
-        await axios.put(`http://localhost:8800/api/users/${user._id}`, newUser);
-        setUser((prevUser) => ({ ...prevUser, coverPicture: fileName }));
-      } catch (err) {
-        console.log(err);
-      }
+      udpateCoverPicture(user?._id, newUser, fileName, setUser, data);
     }
   };
 
@@ -80,7 +60,7 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               {/* Cover */}
-              <label htmlFor="fileCover">
+              <Link target="_blank" to={PF + user?.coverPicture}>
                 <img
                   className="profileCoverImg"
                   src={
@@ -90,6 +70,16 @@ export default function Profile() {
                   }
                   alt=""
                 />
+              </Link>
+              <label htmlFor="fileCover">
+                {userData._id === user?._id && (
+                  <div className="changeCoverPicture">
+                    <InsertPhoto
+                      style={{ fontSize: "4rem" }}
+                      className="iconChangeCoverPicture"
+                    />
+                  </div>
+                )}
                 <input
                   style={{ display: "none" }}
                   type="file"
@@ -99,7 +89,7 @@ export default function Profile() {
                 />
               </label>
               {/* Avartar */}
-              <label htmlFor="fileAvatar">
+              <Link to={PF + user?.profilePicture} target="_blank">
                 <img
                   className="profileUserImg"
                   src={
@@ -109,6 +99,16 @@ export default function Profile() {
                   }
                   alt=""
                 />
+              </Link>
+              <label htmlFor="fileAvatar">
+                {userData._id === user?._id && (
+                  <div className="changeAvatar">
+                    <Person
+                      className="iconChangeAvatar"
+                      style={{ fontSize: "4rem" }}
+                    />
+                  </div>
+                )}
                 <input
                   style={{ display: "none" }}
                   type="file"

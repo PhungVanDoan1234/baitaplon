@@ -1,5 +1,4 @@
 import { useContext, useRef, useState } from "react";
-import axios from "axios";
 import {
   PermMedia,
   Label,
@@ -9,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 import "./share.css";
+import { createPost, upload } from "../../apiCall";
 
 export default function Share({ sendDataToChildFromParent }) {
   const { user } = useContext(AuthContext);
@@ -32,24 +32,11 @@ export default function Share({ sendDataToChildFromParent }) {
       data.append("name", fileName);
       data.append("file", file);
       newPost.img = fileName;
-      console.log(newPost);
-      try {
-        await axios.post("http://localhost:8800/api/upload", data);
-      } catch (err) {
-        console.log(err);
-      }
+      upload(data);
     }
-    try {
-      const res = await axios.post("http://localhost:8800/api/posts", newPost);
-      userPostData = [res.data, ...userPostData];
-      localStorage.setItem("userPost", JSON.stringify(userPostData));
-      sendDataToChildFromParent(userPostData);
-      setFile(null);
-      desc.current.value = "";
-      console.log(userPostData);
-    } catch (error) {
-      console.log(error);
-    }
+    createPost(newPost, userPostData, sendDataToChildFromParent);
+    setFile(null);
+    desc.current.value = "";
     alert(
       ":)) =>> year year 😘😘😘 tích cực băng bài nhé !!! \n" +
         ":) Mà đừng xóa bài mới đăng cho đến khi bạn chuyển trang nhé 😆😆😆 \n" +

@@ -3,7 +3,6 @@ import { PermMedia, Cancel } from "@mui/icons-material";
 import { AuthContext } from "../../../context/AuthContext";
 import "./updatePost.css";
 import { updatePost, upload } from "../../../apiCall";
-import axios from "axios";
 
 export default function UpdatePost({
   id_post,

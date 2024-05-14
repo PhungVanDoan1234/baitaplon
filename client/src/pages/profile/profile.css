@@ -49,3 +49,47 @@
 .profileRightBottom {
   display: flex;
 }
+
+.changeCoverPicture {
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  bottom: 70px;
+  right: 50px;
+  transition: background-color ease 0.4s;
+}
+
+.changeCoverPicture:hover {
+  background-color: rgb(187, 178, 178);
+}
+
+.iconChangeCoverPicture {
+  transform: translateY(-4px);
+  font-size: 100px;
+}
+
+.changeAvatar {
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 18px;
+  right: 600px;
+  /* width: 100px;
+  height: 100px;
+  bottom: 70px;
+  right: 50px; */
+  transition: background-color ease 0.4s;
+  background-color: rgb(230, 219, 219);
+}
+
+.changeAvatar:hover {
+  background-color: rgb(175, 166, 166);
+}

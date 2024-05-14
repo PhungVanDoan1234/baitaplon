@@ -1,45 +1,24 @@
 import Topbar from "../../components/topbar/Topbar";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
 import CardUser from "../../components/cardUser/CardUser";
 import "./otherUser.css";
+import { followUser, getAllUserOther } from "../../apiCall";
 function OtherUser() {
   const [userOthers, setUserOthers] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
 
   useEffect(() => {
-    const getUserOther = async () => {
-      try {
-        const useOther = await axios.get(
-          `http://localhost:8800/api/users/allUser/${currentUser._id}`
-        );
-        setUserOthers(useOther.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserOther();
+    getAllUserOther(setUserOthers, currentUser._id);
   }, [currentUser]);
 
   const handleClick = async (userOther) => {
-    try {
-      if (currentUser.followings.includes(userOther?._id)) {
-        await axios.put(
-          "http://localhost:8800/api/users/" + userOther._id + "/unfollow",
-          { userId: currentUser._id }
-        );
-        dispatch({ type: "UNFOLLOW", payload: userOther._id });
-      } else {
-        await axios.put(
-          "http://localhost:8800/api/users/" + userOther._id + "/follow",
-          { userId: currentUser._id }
-        );
-        dispatch({ type: "FOLLOW", payload: userOther._id });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    followUser(
+      currentUser.followings.includes(userOther?._id),
+      userOther._id,
+      currentUser._id,
+      dispatch
+    );
   };
 
   return (
