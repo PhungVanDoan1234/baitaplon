@@ -11,11 +11,11 @@ import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import Messenger from "./pages/messenger/Messenger";
 import { AuthContext } from "./context/AuthContext";
-import Topbar from "./components/topbar/Topbar";
-import Feed from "./components/feed/Feed";
 import OtherUser from "./pages/otherUser/OtherUser";
 import FollowUser from "./pages/followUser/FollowUser";
 import Notification from "./pages/notification/Notification";
+import FeedPage from "./pages/feedPage/FeedPage";
+import VideoPage from "./pages/videoPage/VideoPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -37,18 +37,11 @@ function App() {
           path="/profile/:username"
           element={user ? <Profile /> : <Navigate to="/login" />}
         />
-        <Route
-          path="/feedPage"
-          element={
-            <>
-              <Topbar />
-              <Feed />
-            </>
-          }
-        ></Route>
+        <Route path="/feedPage" element={<FeedPage />}></Route>
         <Route path="/otherUser" element={<OtherUser />}></Route>
         <Route path="/followUser" element={<FollowUser />}></Route>
         <Route path="/notification" element={<Notification />}></Route>
+        <Route path="/videoPage" element={<VideoPage />}></Route>
       </Routes>
     </Router>
   );

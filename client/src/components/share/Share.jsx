@@ -1,10 +1,10 @@
 import { useContext, useRef, useState } from "react";
 import {
   PermMedia,
-  Label,
   Room,
   EmojiEmotions,
   Cancel,
+  Label,
 } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 import "./share.css";
@@ -17,8 +17,6 @@ export default function Share({ sendDataToChildFromParent }) {
   const [file, setFile] = useState(null);
   let userData = JSON.parse(localStorage.getItem("user"));
   let userPostData = JSON.parse(localStorage.getItem("userPost"));
-
-  console.log(userPostData);
 
   const submitHandle = async (e) => {
     e.preventDefault();
@@ -35,6 +33,7 @@ export default function Share({ sendDataToChildFromParent }) {
       upload(data);
     }
     createPost(newPost, userPostData, sendDataToChildFromParent);
+    console.log(file.type);
     setFile(null);
     desc.current.value = "";
     alert(
@@ -63,7 +62,24 @@ export default function Share({ sendDataToChildFromParent }) {
         <hr className="shareHr" />
         {file && (
           <div className="shareImgContainer">
-            <img src={URL.createObjectURL(file)} alt="" className="shareImg" />
+            {(file.type === "image/png" ||
+              file.type === "image/jpeg" ||
+              file.type === "image/jpeg") && (
+              <img
+                src={URL.createObjectURL(file)}
+                alt=""
+                className="shareImg"
+              />
+            )}
+            {file.type === "video/mp4" && (
+              <video
+                controls
+                src={URL.createObjectURL(file)}
+                alt=""
+                className="shareImg"
+              ></video>
+            )}
+
             <Cancel className="shareCancelImg" onClick={() => setFile(null)} />
           </div>
         )}
@@ -75,18 +91,20 @@ export default function Share({ sendDataToChildFromParent }) {
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
               <PermMedia htmlColor="tomato" className="shareIcon" />
-              <span className="shareOptionText">Photo or Video</span>
+              <span className="shareOptionText">Photo Or Video</span>
               <input
                 style={{ display: "none" }}
                 type="file"
                 id="file"
-                accept=".png, .jpeg, .jpg"
+                accept=".png, .jpeg, .jpg, .mp4"
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </label>
             <div className="shareOption">
-              <Label htmlColor="blue" className="shareIcon" />
-              <span className="shareOptionText">Tag</span>
+              <label htmlFor="fileVideo" className="shareOption">
+                <Label htmlColor="blue" className="shareIcon" />
+                <span className="shareOptionText">Video</span>
+              </label>
             </div>
             <div className="shareOption">
               <Room htmlColor="green" className="shareIcon" />

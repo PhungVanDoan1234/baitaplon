@@ -1,0 +1,9 @@
+.feedPageContainer {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.feedPageWrapper {
+  flex: 1;
+}

@@ -70,11 +70,23 @@ export default function UpdatePost({
         <hr className="shareHrUpdate" />
         {file && (
           <div className="shareImgContainerUpdate">
-            <img
-              src={URL.createObjectURL(file)}
-              alt=""
-              className="shareImgUpdate"
-            />
+            {(file.type === "image/png" ||
+              file.type === "image/jpeg" ||
+              file.type === "image/jpeg") && (
+              <img
+                src={URL.createObjectURL(file)}
+                alt=""
+                className="shareImg"
+              />
+            )}
+            {file.type === "video/mp4" && (
+              <video
+                controls
+                src={URL.createObjectURL(file)}
+                alt=""
+                className="shareImg"
+              ></video>
+            )}
             <Cancel
               className="shareCancelImgUpdate"
               onClick={() => setFile(null)}
@@ -94,7 +106,7 @@ export default function UpdatePost({
                 style={{ display: "none" }}
                 type="file"
                 id="fileUpdate"
-                accept=".png, .jpeg, .jpg"
+                accept=".png, .jpeg, .jpg, .mp4"
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </label>

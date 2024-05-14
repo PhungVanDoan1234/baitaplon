@@ -26,8 +26,6 @@ export default function Feed({ username }) {
     setdataChildOfShare(data);
   };
 
-  console.log(dataChildOfShare);
-
   useMemo(() => {
     if (dataChild?.length > 0) setPosts([...dataChild]);
     if (dataChildOfShare?.length > 0) setPosts([...dataChildOfShare]);
