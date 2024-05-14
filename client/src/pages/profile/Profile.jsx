@@ -7,7 +7,12 @@ import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
 import { InsertPhoto, Person } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { getUserByName, udpateCoverPicture, updateAvatar } from "../../apiCall";
+import {
+  deleteFile,
+  getUserByName,
+  udpateCoverPicture,
+  updateAvatar,
+} from "../../apiCall";
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FORDER;
@@ -20,6 +25,7 @@ export default function Profile() {
   }, [username]);
 
   const handleChangeAvatar = async (e) => {
+    deleteFile(user.profilePicture);
     const newUser = {
       userId: user?._id,
     };
@@ -36,6 +42,7 @@ export default function Profile() {
   };
 
   const handleChangeCover = async (e) => {
+    deleteFile(user.coverPicture);
     const newUser = {
       userId: user?._id,
     };

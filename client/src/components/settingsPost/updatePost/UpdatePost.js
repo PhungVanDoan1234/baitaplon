@@ -2,10 +2,10 @@ import { useContext, useRef, useState } from "react";
 import { PermMedia, Cancel } from "@mui/icons-material";
 import { AuthContext } from "../../../context/AuthContext";
 import "./updatePost.css";
-import { updatePost, upload } from "../../../apiCall";
+import { deleteFile, updatePost, upload } from "../../../apiCall";
 
 export default function UpdatePost({
-  id_post,
+  post,
   children,
   setShowUpdate,
   sendDataToParentUpdate,
@@ -22,6 +22,7 @@ export default function UpdatePost({
       userId: user._id,
       desc: desc.current.value,
     };
+    deleteFile(post.img);
     if (file) {
       const data = new FormData();
       const fileName = Date.now() + file.name;
@@ -31,9 +32,9 @@ export default function UpdatePost({
       upload(data);
     }
     try {
-      updatePost(id_post, newPost);
+      await updatePost(post._id, newPost);
       userPostData.map((userPost) => {
-        if (userPost._id === id_post) {
+        if (userPost._id === post._id) {
           if (newPost.img) userPost.img = newPost.img;
           if (newPost.desc) userPost.desc = newPost.desc;
           sendDataToParentUpdate(userPost);

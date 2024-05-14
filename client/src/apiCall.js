@@ -258,3 +258,12 @@ export const upload = async (data) => {
     console.log(err);
   }
 };
+
+//deletefile
+export const deleteFile = async (fileName) => {
+  try {
+    await axios.delete(`http://localhost:8800/api/delete/${fileName}`);
+  } catch (err) {
+    console.log(err);
+  }
+};

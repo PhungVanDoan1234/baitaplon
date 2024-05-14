@@ -32,6 +32,16 @@ export default function Feed({ username }) {
     if (dataChild?.length > 0) setPosts([...dataChild]);
     if (dataChildOfShare?.length > 0) setPosts([...dataChildOfShare]);
   }, [dataChild, dataChildOfShare]);
+
+  useEffect(() => {
+    if (!username) {
+      localStorage.setItem(
+        "postFriend",
+        JSON.stringify(posts.filter((p) => p.userId !== user._id))
+      );
+    }
+  }, [posts, username, user]);
+
   return (
     <div className="feed">
       <div className="feedWrapper">

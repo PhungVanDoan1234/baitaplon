@@ -16,6 +16,10 @@
   padding-right: 10px;
 }
 
+.commentBoxTop::-webkit-scrollbar {
+  width: 10px;
+}
+
 /* comment text */
 
 .comment.own {

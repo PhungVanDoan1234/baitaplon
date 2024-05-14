@@ -7,7 +7,13 @@ import { AuthContext } from "../../context/AuthContext";
 import UpdatePost from "../settingsPost/updatePost/UpdatePost";
 import { Dropdown } from "react-bootstrap";
 import CommentsBox from "../commentsBox/CommentsBox";
-import { getUser, likePost, getAllComment, deletePost } from "../../apiCall";
+import {
+  getUser,
+  likePost,
+  getAllComment,
+  deletePost,
+  deleteFile,
+} from "../../apiCall";
 
 export default function Post({ post, sendDataToChildFromParent }) {
   const [like, setLike] = useState(post?.likes?.length);
@@ -43,6 +49,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
   };
 
   const handleDeletePost = async () => {
+    deleteFile(post.img);
     deletePost(post?._id, currentUser._id);
     userPostData = userPostData.filter(
       (userPost) => userPost._id !== post?._id
@@ -83,7 +90,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
     <div className="post">
       {showUpdate && (
         <UpdatePost
-          id_post={post?._id}
+          post={post}
           sendDataToParentUpdate={handleDataFormChildUpdated}
           setShowUpdate={setShowUpdate}
         >
@@ -96,7 +103,11 @@ export default function Post({ post, sendDataToChildFromParent }) {
             <Link to={`profile/${user.username}`}>
               <img
                 className="postProfileImg"
-                src={PF + userData.profilePicture}
+                src={
+                  userData._id === user._id
+                    ? PF + userData.profilePicture
+                    : PF + user.profilePicture
+                }
                 alt=""
               />
             </Link>

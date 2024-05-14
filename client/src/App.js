@@ -15,6 +15,7 @@ import Topbar from "./components/topbar/Topbar";
 import Feed from "./components/feed/Feed";
 import OtherUser from "./pages/otherUser/OtherUser";
 import FollowUser from "./pages/followUser/FollowUser";
+import Notification from "./pages/notification/Notification";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -47,6 +48,7 @@ function App() {
         ></Route>
         <Route path="/otherUser" element={<OtherUser />}></Route>
         <Route path="/followUser" element={<FollowUser />}></Route>
+        <Route path="/notification" element={<Notification />}></Route>
       </Routes>
     </Router>
   );

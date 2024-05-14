@@ -121,6 +121,19 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   }
 });
 
+app.delete("/api/delete/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, "public/images", filename);
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Xóa tệp tin thất bại");
+    }
+    return res.status(200).json("Tệp tin đã được xóa thành công");
+  });
+});
+
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);

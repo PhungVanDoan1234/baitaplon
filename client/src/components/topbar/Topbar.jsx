@@ -16,8 +16,16 @@ export default function Topbar() {
   let userData = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
+    if (
+      window.confirm(
+        "Bạn có chắc chắn muốn thoát tài khoản chứ 😔😔😔? \n thôi đừng thoát nhấn cancel đi 😥😥😥"
+      )
+    ) {
+      localStorage.clear();
+      window.location.reload();
+    } else {
+      alert("year hoo !!! 🤗🤗🤗 ");
+    }
   };
 
   return (
@@ -58,8 +66,13 @@ export default function Topbar() {
             <span className="topbarIconBadge">2</span>
           </div>
           <div className="topbarIconItem">
-            <Notifications />
             <span className="topbarIconBadge">1</span>
+            <Link
+              to="/notification"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <Notifications />
+            </Link>
           </div>
           <div className="topbarIconItem" onClick={handleLogout}>
             <Logout />
