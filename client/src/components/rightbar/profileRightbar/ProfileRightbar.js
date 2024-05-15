@@ -8,7 +8,7 @@ import "./profileRightbar.css";
 function ProfileRightbar({ user, friends }) {
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const followed = currentUser.followings.includes(user?._id);
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const handleClick = () => {
     followUser(followed, user._id, currentUser._id, dispatch);

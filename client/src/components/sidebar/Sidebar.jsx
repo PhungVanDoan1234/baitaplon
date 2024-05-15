@@ -40,7 +40,7 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Videos</span>
             </li>
           </Link>
-          <Link>
+          <Link to="/groupPage">
             <li className="sidebarListItem">
               <Group className="sidebarIcon" />
               <span className="sidebarListItemText">Groups</span>

@@ -12,7 +12,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Topbar() {
   const { user } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   let userData = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
@@ -46,8 +46,8 @@ export default function Topbar() {
       </div>
       <div className="topbarRight">
         <div className="topbarLinks">
-          <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
+          {/* <span className="topbarLink">Homepage</span>
+          <span className="topbarLink">Timeline</span> */}
         </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">

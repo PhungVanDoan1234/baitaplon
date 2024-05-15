@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./cardUser.css";
 
 function CardUser({ userOther, currentUser, handleClick }) {
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   console.log(currentUser);
   return (
     <Card style={{ width: "13em" }}>

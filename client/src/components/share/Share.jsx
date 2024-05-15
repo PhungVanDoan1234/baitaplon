@@ -12,7 +12,7 @@ import { createPost, upload } from "../../apiCall";
 
 export default function Share({ sendDataToChildFromParent }) {
   const { user } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
   let userData = JSON.parse(localStorage.getItem("user"));

@@ -19,7 +19,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
   const [like, setLike] = useState(post?.likes?.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showComments, setShowComments] = useState(false);

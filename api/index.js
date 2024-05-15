@@ -9,6 +9,7 @@ const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const commentRouter = require("./routes/comments");
+const groupMesseageRouter = require("./routes/groupMessages");
 const conversationsRoute = require("./routes/conversations");
 const messagesRoute = require("./routes/messages");
 const cors = require("cors");
@@ -138,6 +139,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRouter);
+app.use("/api/groupMessages", groupMesseageRouter);
 app.use("/api/conversations", conversationsRoute);
 app.use("/api/messages", messagesRoute);
 

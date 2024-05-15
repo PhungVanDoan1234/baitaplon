@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
-const CommentSchema = new mongoose.Schema(
+const GroupMessageSchema = new mongoose.Schema(
   {
-    postId: {
-      type: String,
-      required: true,
-    },
     userId: {
       type: String,
       required: true,
@@ -14,7 +10,7 @@ const CommentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    file: {
+    img: {
       type: String,
     },
   },
@@ -23,4 +19,4 @@ const CommentSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Comment", CommentSchema);
+module.exports = mongoose.model("GroupMessage", GroupMessageSchema);

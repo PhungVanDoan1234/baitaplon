@@ -24,7 +24,7 @@ function OtherUser() {
   return (
     <>
       <Topbar></Topbar>
-      <p className="sologanOtherUser">
+      <p className="sologan">
         <i>Follow more other friends </i>😉😉😉
       </p>
       <div className="otherUser">

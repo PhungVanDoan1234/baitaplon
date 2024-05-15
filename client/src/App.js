@@ -16,6 +16,8 @@ import FollowUser from "./pages/followUser/FollowUser";
 import Notification from "./pages/notification/Notification";
 import FeedPage from "./pages/feedPage/FeedPage";
 import VideoPage from "./pages/videoPage/VideoPage";
+import GroupPage from "./pages/groupPage/GroupPage";
+import AboutUs from "./pages/aboutUs/AboutUs";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -42,6 +44,8 @@ function App() {
         <Route path="/followUser" element={<FollowUser />}></Route>
         <Route path="/notification" element={<Notification />}></Route>
         <Route path="/videoPage" element={<VideoPage />}></Route>
+        <Route path="/groupPage" element={<GroupPage />}></Route>
+        <Route path="/aboutUs" element={<AboutUs />}></Route>
       </Routes>
     </Router>
   );

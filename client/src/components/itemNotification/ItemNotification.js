@@ -4,7 +4,7 @@ import { getUser } from "../../apiCall";
 import { Link } from "react-router-dom";
 
 function ItemNotification({ post }) {
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
 
   useEffect(() => {

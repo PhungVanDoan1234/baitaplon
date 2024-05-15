@@ -1,0 +1,69 @@
+.groupPageContainer {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.groupPageWrapper {
+  flex: 1;
+}
+
+.buttonGroup {
+  display: flex;
+  margin: 0 auto;
+  font-size: 25px;
+  font-style: italic;
+  border: none;
+  padding: 2px 25px;
+  border-radius: 10%;
+  transition: background-color ease 0.4s;
+  margin-bottom: 80px;
+}
+
+.buttonGroup:hover {
+  background-color: rgb(175, 179, 181);
+}
+
+.itemGroup {
+  list-style: none;
+}
+
+.ImageGroup {
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.inputNameGroup {
+  width: 50%;
+  border: none;
+  outline: none;
+  margin-bottom: 100px;
+  font-size: 30px;
+}
+
+.buttonHandleCreateGroup {
+  border: none;
+  font-size: 30px;
+  border-radius: 10%;
+  padding: 0 30px;
+}
+
+.groupFollow {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 70px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.showAndHideGroup {
+  border: none;
+  display: flex;
+  margin: 0 auto;
+  font-size: 25px;
+  padding: 5px 20px;
+  margin-bottom: 100px;
+}

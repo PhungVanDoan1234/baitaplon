@@ -6,7 +6,7 @@ import { Delete, Update } from "@mui/icons-material";
 import { getUser } from "../../apiCall";
 
 function Comment({ comment, onDelete, onUpdate }) {
-  const PF = process.env.REACT_APP_PUBLIC_FORDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
 

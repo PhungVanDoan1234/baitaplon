@@ -42,6 +42,11 @@
   width: 80%;
   height: 90px;
   padding: 10px;
+  border: solid 1px gray;
+}
+
+.chatMessageInput:focus {
+  outline: none;
 }
 
 .chatSubmitButton {
@@ -71,4 +76,22 @@
   font-size: 50px;
   color: rgb(224, 220, 220);
   cursor: default;
+}
+
+@media screen and (max-width: 768px) {
+  .chatMenu {
+    flex: 1;
+  }
+
+  .chatMenuInput {
+    display: none;
+  }
+
+  .chatBox {
+    flex: 10;
+  }
+
+  .chatOnline {
+    flex: 1px;
+  }
 }
