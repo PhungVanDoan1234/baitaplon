@@ -1,6 +1,10 @@
 const User = require("../models/User");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
+const Conversation = require("../models/Conversation");
+const Comment = require("../models/Comment");
+const Post = require("../models/Post");
+const Message = require("../models/Message");
 
 //update user
 router.put("/:id", async (req, res) => {
@@ -30,7 +34,25 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     try {
-      await User.findByIdAndDelete(req.params.id);
+      const user = await User.findById(req.params.id);
+      // Xóa người dùng và cập nhật danh sách followers và followings của các người dùng khác
+      await Promise.all([
+        User.deleteOne({ _id: req.params.id }),
+        User.updateMany(
+          {},
+          { $pull: { followers: req.params.id } },
+          { multi: true }
+        ),
+        User.updateMany(
+          {},
+          { $pull: { followings: req.params.id } },
+          { multi: true }
+        ),
+      ]);
+      await Conversation.deleteMany({ members: { $in: [req.params.id] } });
+      await Comment.deleteMany({ userId: req.params.id });
+      await Post.deleteMany({ userId: req.params.id });
+      await Message.deleteMany({ sender: req.params.id });
       res.status(200).json("Account has been deleted");
     } catch (err) {
       return res.status(500).json(err);

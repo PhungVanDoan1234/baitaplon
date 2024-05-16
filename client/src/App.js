@@ -18,6 +18,7 @@ import FeedPage from "./pages/feedPage/FeedPage";
 import VideoPage from "./pages/videoPage/VideoPage";
 import GroupPage from "./pages/groupPage/GroupPage";
 import AboutUs from "./pages/aboutUs/AboutUs";
+import SettingsPage from "./pages/settingPage/SettingsPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -46,6 +47,10 @@ function App() {
         <Route path="/videoPage" element={<VideoPage />}></Route>
         <Route path="/groupPage" element={<GroupPage />}></Route>
         <Route path="/aboutUs" element={<AboutUs />}></Route>
+        <Route
+          path="/settingsPage"
+          element={user ? <SettingsPage /> : <Navigate to="/login" />}
+        ></Route>
       </Routes>
     </Router>
   );

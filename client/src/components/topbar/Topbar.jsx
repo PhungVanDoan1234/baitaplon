@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./topbar.css";
 import {
@@ -9,11 +9,34 @@ import {
   Logout,
 } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import { getAllUserOther } from "../../apiCall";
 
 export default function Topbar() {
-  const { user } = useContext(AuthContext);
+  const { user: currentUser } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [users, setUsers] = useState([]);
   let userData = JSON.parse(localStorage.getItem("user"));
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    getAllUserOther(setUsers, currentUser._id);
+
+    if (value) {
+      const results = users.filter((user) =>
+        user.username.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
 
   const handleLogout = () => {
     if (
@@ -38,17 +61,48 @@ export default function Topbar() {
       <div className="topbarCenter">
         <div className="searchbar">
           <Search className="searchIcon" />
-          <input
-            placeholder="Search for friend, post or video"
-            className="searchInput"
-          />
+          <Tippy
+            className="custom-tippy"
+            content={
+              searchResults.length > 0 ? (
+                <div className="searchResults">
+                  {searchResults.map((user, index) => (
+                    <Link
+                      to={`/profile/${user.username}`}
+                      key={index}
+                      className="searchResultItem"
+                      onClick={() => setSearchTerm("")}
+                    >
+                      <img
+                        src={
+                          user.profilePicture
+                            ? PF + user.profilePicture
+                            : PF + "person/noAvatar.png"
+                        }
+                        alt={user.username}
+                        className="searchResultImg"
+                      />
+                      <span className="searchResultName">{user.username}</span>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <span>Không tìm thấy kết quả</span>
+              )
+            }
+            visible={searchTerm.length > 0}
+            interactive={true}
+          >
+            <input
+              placeholder="Search for friend, post or video"
+              className="searchInput"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </Tippy>
         </div>
       </div>
       <div className="topbarRight">
-        <div className="topbarLinks">
-          {/* <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span> */}
-        </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
             <Link to="/followUser">
@@ -78,7 +132,7 @@ export default function Topbar() {
             <Logout />
           </div>
         </div>
-        <Link to={`/profile/${user.username}`}>
+        <Link to={`/profile/${currentUser.username}`}>
           <img
             src={PF + userData.profilePicture}
             alt=""

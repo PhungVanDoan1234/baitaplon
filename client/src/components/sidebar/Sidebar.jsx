@@ -76,7 +76,7 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Courses</span>
             </li>
           </Link>
-          <Link to="">
+          <Link to="/settingsPage">
             <li className="sidebarListItem">
               <Settings className="sidebarIcon" />
               <span className="sidebarListItemText">Settings</span>

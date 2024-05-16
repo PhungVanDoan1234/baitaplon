@@ -9,9 +9,11 @@
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.16",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@popperjs/core": "^2.11.8",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@tippyjs/react": "^4.2.6",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
@@ -22,6 +24,7 @@
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.9",
     "timeago.js": "^4.0.2",
+    "tippy.js": "^6.3.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -58,3 +58,17 @@
 .rightbarFollowButton:focus {
   outline: none;
 }
+
+.rightbarMessageButton {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #1872f2;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+}

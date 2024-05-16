@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 //create a post
 
@@ -35,6 +36,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (post.userId === req.body.userId) {
+      await Comment.deleteMany({ postId: req.params.id });
       await post.deleteOne();
       res.status(200).json("the post has been deleted");
     } else {
@@ -44,6 +46,7 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //like / dislike a post
 
 router.put("/:id/like", async (req, res) => {

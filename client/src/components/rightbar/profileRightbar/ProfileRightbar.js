@@ -1,18 +1,46 @@
 import { Add, Remove } from "@mui/icons-material";
 import { followUser } from "../../../apiCall";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
 import "./profileRightbar.css";
+import axios from "axios";
 
 function ProfileRightbar({ user, friends }) {
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const followed = currentUser.followings.includes(user?._id);
+  const [conversation, setConversation] = useState([]);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const handleClick = () => {
     followUser(followed, user._id, currentUser._id, dispatch);
   };
+
+  const handleClickMessage = async () => {
+    try {
+      const data = {
+        senderId: currentUser._id,
+        receiverId: user._id,
+      };
+      await axios.post(`http://localhost:8800/api/conversations/`, data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const handleCoversation = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8800/api/conversations/${currentUser._id}`
+        );
+        setConversation(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    handleCoversation();
+  }, [currentUser]);
 
   return (
     <>
@@ -22,6 +50,19 @@ function ProfileRightbar({ user, friends }) {
           {followed ? <Remove /> : <Add />}
         </button>
       )}
+      {currentUser._id !== user._id &&
+        (conversation.some((c) => c.members[1] === user._id) ? (
+          <button className="rightbarMessageButton">
+            <Link to="/messenger">message</Link>
+          </button>
+        ) : (
+          <button
+            className="rightbarMessageButton"
+            onClick={handleClickMessage}
+          >
+            <Link to="/messenger">message</Link>
+          </button>
+        ))}
       <h4 className="rightbarTitle">User information</h4>
       <div className="rightbarInfo">
         <div className="rightbarInfoItem">

@@ -94,3 +94,41 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+.searchResults {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.searchResultItem:hover {
+  background-color: #f0f0f0;
+}
+
+.searchResultImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.searchResultName {
+  font-size: 14px;
+  color: black;
+}
+
+.custom-tippy {
+  border: none;
+  width: 350px;
+}
