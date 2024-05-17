@@ -5,6 +5,7 @@ const Conversation = require("../models/Conversation");
 const Comment = require("../models/Comment");
 const Post = require("../models/Post");
 const Message = require("../models/Message");
+const Review = require("../models/Review");
 
 //update user
 router.put("/:id", async (req, res) => {
@@ -48,11 +49,17 @@ router.delete("/:id", async (req, res) => {
           { $pull: { followings: req.params.id } },
           { multi: true }
         ),
+        Review.updateMany(
+          {},
+          { $pull: { likeReview: req.params.id } },
+          { multi: true }
+        ),
       ]);
       await Conversation.deleteMany({ members: { $in: [req.params.id] } });
       await Comment.deleteMany({ userId: req.params.id });
       await Post.deleteMany({ userId: req.params.id });
       await Message.deleteMany({ sender: req.params.id });
+      await Review.deleteMany({ userId: req.params.id });
       res.status(200).json("Account has been deleted");
     } catch (err) {
       return res.status(500).json(err);

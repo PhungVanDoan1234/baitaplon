@@ -19,6 +19,7 @@ import VideoPage from "./pages/videoPage/VideoPage";
 import GroupPage from "./pages/groupPage/GroupPage";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import SettingsPage from "./pages/settingPage/SettingsPage";
+import Reviews from "./pages/reviews/Reviews";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -40,13 +41,38 @@ function App() {
           path="/profile/:username"
           element={user ? <Profile /> : <Navigate to="/login" />}
         />
-        <Route path="/feedPage" element={<FeedPage />}></Route>
-        <Route path="/otherUser" element={<OtherUser />}></Route>
-        <Route path="/followUser" element={<FollowUser />}></Route>
-        <Route path="/notification" element={<Notification />}></Route>
-        <Route path="/videoPage" element={<VideoPage />}></Route>
-        <Route path="/groupPage" element={<GroupPage />}></Route>
-        <Route path="/aboutUs" element={<AboutUs />}></Route>
+        <Route
+          path="/feedPage"
+          element={user ? <FeedPage /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/otherUser"
+          element={user ? <OtherUser /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/followUser"
+          element={user ? <FollowUser /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/notification"
+          element={user ? <Notification /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/videoPage"
+          element={user ? <VideoPage /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/groupPage"
+          element={user ? <GroupPage /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/aboutUs"
+          element={user ? <AboutUs /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/reviews"
+          element={user ? <Reviews /> : <Navigate to="/login" />}
+        ></Route>
         <Route
           path="/settingsPage"
           element={user ? <SettingsPage /> : <Navigate to="/login" />}
@@ -61,3 +87,11 @@ export default App;
 /* <Route path="/profile/:username" element={<Profile />} /> */
 /* <Route path="/register" element={<Register />} /> */
 /* <Route path="/login" element={<Login />} /> */
+
+/* <Route path="/feedPage" element={<FeedPage />}></Route>
+        <Route path="/otherUser" element={<OtherUser />}></Route>
+        <Route path="/followUser" element={<FollowUser />}></Route>
+        <Route path="/notification" element={<Notification />}></Route>
+        <Route path="/videoPage" element={<VideoPage />}></Route>
+        <Route path="/groupPage" element={<GroupPage />}></Route>
+        <Route path="/aboutUs" element={<AboutUs />}></Route> */
