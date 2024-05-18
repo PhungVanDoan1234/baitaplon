@@ -1,0 +1,24 @@
+.IconCancle {
+  position: absolute;
+  top: 110px;
+  right: 50px;
+}
+
+.listGame {
+  list-style: none;
+  font-style: italic;
+  width: 80%;
+  margin-left: 20px;
+}
+
+.ItemListGame {
+  margin: 20px 0;
+}
+
+.ItemListGame .MuiPaper-root {
+  font-size: 20px;
+}
+
+.titleGame {
+  text-align: center;
+}

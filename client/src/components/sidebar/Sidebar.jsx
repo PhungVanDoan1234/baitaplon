@@ -10,6 +10,7 @@ import {
   School,
   Settings,
   Reviews,
+  Gamepad,
 } from "@mui/icons-material";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { Link } from "react-router-dom";
@@ -59,10 +60,10 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Questions</span>
             </li>
           </Link>
-          <Link>
+          <Link to="/gamePage">
             <li className="sidebarListItem">
-              <WorkOutline className="sidebarIcon" />
-              <span className="sidebarListItemText">Jobs</span>
+              <Gamepad className="sidebarIcon" />
+              <span className="sidebarListItemText">Game</span>
             </li>
           </Link>
           <Link to="/eventsPage">
@@ -71,12 +72,6 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Events</span>
             </li>
           </Link>
-          {/* <Link>
-            <li className="sidebarListItem">
-              <School className="sidebarIcon" />
-              <span className="sidebarListItemText">Courses</span>
-            </li>
-          </Link> */}
           <Link to="/reviews">
             <li className="sidebarListItem">
               <Reviews className="sidebarIcon" />
@@ -107,3 +102,10 @@ export default function Sidebar() {
 /* <button className="sidebarButton">Show More</button> */
 
 // icon rating
+
+/* <Link>
+            <li className="sidebarListItem">
+              <School className="sidebarIcon" />
+              <span className="sidebarListItemText">Courses</span>
+            </li>
+          </Link> */

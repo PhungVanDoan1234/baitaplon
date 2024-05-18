@@ -34,15 +34,18 @@ function EventPage() {
 
   console.log(dateSchedules);
 
-  const handleCreateDateSchedule = () => {
+  const handleCreateDateSchedule = async () => {
     try {
       const newDateSchedule = {
         userId: currentUser._id,
         date: date,
         text: inputRef.current.value,
       };
-      axios.post(`http://localhost:8800/api/calendars/`, newDateSchedule);
-      setDateSchedules([newDateSchedule, ...dateSchedules]);
+      const res = await axios.post(
+        `http://localhost:8800/api/calendars/`,
+        newDateSchedule
+      );
+      setDateSchedules([res.data, ...dateSchedules]);
       inputRef.current.value = "";
       setShowCreateDateSchedule(false);
     } catch (err) {
@@ -50,7 +53,7 @@ function EventPage() {
     }
   };
 
-  const hanldeUpdateDateSchedule = (d) => {
+  const hanldeUpdateDateSchedule = async (d) => {
     try {
       const newDateSchedule = {
         userId: currentUser._id,
@@ -58,7 +61,7 @@ function EventPage() {
       if (inputRef?.current?.value !== "")
         newDateSchedule.text = inputRef?.current?.value;
       if (date) newDateSchedule.date = date;
-      axios.put(
+      await axios.put(
         `http://localhost:8800/api/calendars/${d._id}`,
         newDateSchedule
       );
@@ -81,9 +84,9 @@ function EventPage() {
     }
   };
 
-  const hanldeDeleteDateSchedule = (d) => {
+  const hanldeDeleteDateSchedule = async (d) => {
     try {
-      axios.delete(`http://localhost:8800/api/calendars/${d._id}`, {
+      await axios.delete(`http://localhost:8800/api/calendars/${d._id}`, {
         data: {
           userId: currentUser._id,
         },
@@ -131,7 +134,7 @@ function EventPage() {
         </Button>
         {(showAndHide ? dateSchedules : dateSchedules.slice(0, 2)).map((d) => (
           <div key={d._id} className="dateSchedule">
-            <Alert className="dateScheduleAlert">
+            <Alert className="dateScheduleAlert" severity="info">
               Ngày: {new Date(d.date).toDateString()} <br /> noted : {d.text}
             </Alert>
             <div className="buttonHandle">
