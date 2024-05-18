@@ -5,13 +5,13 @@ import "./homeRightbar.css";
 function HomeRightbar({ friendsOfCurrentUser }) {
   return (
     <>
-      <div className="birthdayContainer">
-        <img className="birthdayImg" src="assets/gift.png" alt="" />
-        <span className="birthdayText">
-          <b>Would you like to understand more about us?.</b>
-        </span>
-      </div>
       <Link to="/aboutUs">
+        <div className="birthdayContainer">
+          <img className="birthdayImg" src="assets/gift.png" alt="" />
+          <span className="birthdayText">
+            <b>Would you like to understand more about us?.</b>
+          </span>
+        </div>
         <img className="rightbarAd" src="assets/ad.jpg" alt="" />
         <h4 className="rightbarTitle">Online Friends</h4>
       </Link>

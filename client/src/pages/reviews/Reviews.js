@@ -90,11 +90,21 @@ function Reviews() {
 
   const handleUpdate = async (review) => {
     if (showCreateReview === true) {
-      const newReview = {
-        userId: currentUser._id,
-        text: inputRef.current.value,
-        rating: valueRating,
-      };
+      let newReview = {};
+      if (currentUser.isAdmin) {
+        newReview = {
+          isAdmin: currentUser.isAdmin,
+          text: inputRef.current.value,
+          rating: valueRating,
+        };
+      } else {
+        newReview = {
+          userId: currentUser._id,
+          text: inputRef.current.value,
+          rating: valueRating,
+        };
+      }
+
       try {
         await axios.delete(`http://localhost:8800/api/delete/${review.img}`);
       } catch (err) {

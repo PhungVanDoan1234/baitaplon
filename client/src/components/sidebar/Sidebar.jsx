@@ -65,7 +65,7 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Jobs</span>
             </li>
           </Link>
-          <Link>
+          <Link to="/eventsPage">
             <li className="sidebarListItem">
               <Event className="sidebarIcon" />
               <span className="sidebarListItemText">Events</span>
@@ -77,7 +77,7 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Courses</span>
             </li>
           </Link> */}
-          <Link to={"/reviews"}>
+          <Link to="/reviews">
             <li className="sidebarListItem">
               <Reviews className="sidebarIcon" />
               <span className="sidebarListItemText">Reviews</span>

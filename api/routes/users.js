@@ -6,6 +6,7 @@ const Comment = require("../models/Comment");
 const Post = require("../models/Post");
 const Message = require("../models/Message");
 const Review = require("../models/Review");
+const Calendar = require("../models/Calendar");
 
 //update user
 router.put("/:id", async (req, res) => {
@@ -60,6 +61,7 @@ router.delete("/:id", async (req, res) => {
       await Post.deleteMany({ userId: req.params.id });
       await Message.deleteMany({ sender: req.params.id });
       await Review.deleteMany({ userId: req.params.id });
+      await Calendar.deleteMany({ userId: req.params.id });
       res.status(200).json("Account has been deleted");
     } catch (err) {
       return res.status(500).json(err);

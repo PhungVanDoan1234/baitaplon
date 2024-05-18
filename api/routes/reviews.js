@@ -17,9 +17,9 @@ router.put("/:id", async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
     const newReview = req.body;
-    if (review.userId === req.body.userId || req.body.isAdmin === true) {
+    if (req.body.isAdmin === true || review.userId === req.body.userId) {
       await review.updateOne({ $set: newReview });
-      res.status(200).json(newReview);
+      res.status(200).json(review);
     } else {
       res.status(403).json("you can update only your review");
     }
@@ -58,7 +58,7 @@ router.put("/:id/like", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
-    if (review.userId === req.body.userId || req.body.isAdmin === true) {
+    if (req.body.isAdmin === true || review.userId === req.body.userId) {
       await review.deleteOne();
       res.status(200).json("the review has been deleted");
     } else {
