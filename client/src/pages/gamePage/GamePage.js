@@ -1,11 +1,10 @@
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useCallback, useState } from "react";
 import Wrapper from "../../components/wrapper/Wrapper";
 import ClicktheCircle from "../../components/game/game_ClickTheCircle/ClicktheCircle";
 import SnakeGame from "../../components/game/snakeGame/SnakeGame";
-import { Alert, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import TicTacToe from "../../components/game/ticTacToe/TicTacToe";
 import "./gamePage.css";
-import { AutoFixHigh, FiberManualRecord } from "@mui/icons-material";
 import MemoryGame from "../../components/game/memoryGame/MemoryGame";
 import RockPaperScissors from "../../components/game/rockPaperScissors/RockPaperScissors";
 import WhackAMole from "../../components/game/Whack-a-Mole/WhackAMole";
@@ -13,14 +12,15 @@ import Game2048 from "../../components/game/2048/Game2048";
 import Minesweeper from "../../components/game/minesweeper/Minesweeper";
 import FlappyBird from "../../components/game/FlappyBird/FlappyBird";
 import Tetris from "../../components/game/Tetris/Tetris";
+import GameLists from "../../components/game/gameLists/GameLists";
 
 function GamePage() {
   const [selectedGame, setSelectedGame] = useState(null);
-  const [showHandle, setShowHandle] = useState(false);
+  const [showAndHide, setShowAndHide] = useState(true);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setSelectedGame(null);
-  };
+  }, []);
 
   const gameList = [
     {
@@ -107,18 +107,14 @@ function GamePage() {
     <Wrapper sologan={"funny game"}>
       {!selectedGame ? (
         <ul className="listGame">
-          {gameList.map((g) => (
-            <>
-              <li
-                className="ItemListGame"
-                onClick={() => setSelectedGame(g.id)}
-              >
-                <Alert icon={<FiberManualRecord fontSize="inherit" />}>
-                  {g.name}
-                </Alert>
-              </li>
-            </>
+          {(showAndHide ? gameList.slice(0, 5) : gameList).map((g) => (
+            <li className="ItemListGame">
+              <GameLists game={g} onHandle={setSelectedGame}></GameLists>
+            </li>
           ))}
+          <Button onClick={() => setShowAndHide(!showAndHide)}>
+            {showAndHide ? "hide" : "show"}
+          </Button>
         </ul>
       ) : (
         <>
