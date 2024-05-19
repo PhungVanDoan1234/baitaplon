@@ -22,3 +22,24 @@
 .titleGame {
   text-align: center;
 }
+
+.InputListCreateOrUpdateGame {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.InputListCreateOrUpdateGame input,
+.InputListCreateOrUpdateGame textarea {
+  margin: 5px 0;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.InputListCreateOrUpdateGame input,
+.InputListCreateOrUpdateGame textarea:focus {
+  outline: none;
+}
