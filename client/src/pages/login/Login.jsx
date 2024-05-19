@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useCallback, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -12,13 +12,16 @@ function Login() {
   const password = useRef();
   const { isFetching, error, dispatch } = useContext(AuthContext);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    loginCall(
-      { email: email.current.value, password: password.current.value },
-      dispatch
-    );
-  };
+  const handleClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      loginCall(
+        { email: email.current.value, password: password.current.value },
+        dispatch
+      );
+    },
+    [dispatch]
+  );
 
   return (
     <SignUpAndIn>

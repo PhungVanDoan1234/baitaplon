@@ -14,6 +14,8 @@ import {
   deletePost,
   deleteFile,
 } from "../../apiCall";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 export default function Post({ post, sendDataToChildFromParent }) {
   const [like, setLike] = useState(post?.likes?.length);
@@ -28,6 +30,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
   const [dataChildUpdated, setDataChildUpdated] = useState([]);
   let userData = JSON.parse(localStorage.getItem("user"));
   let userPostData = JSON.parse(localStorage.getItem("userPost"));
+  const [save, setSave] = useState(userData.savePosts.includes(post._id));
 
   useEffect(() => {
     setIsLiked(post?.likes?.includes(currentUser._id));
@@ -78,6 +81,29 @@ export default function Post({ post, sendDataToChildFromParent }) {
     setDataChildUpdated(dataUpdated);
   };
 
+  const handleSavePost = async () => {
+    const postData = {
+      postId: post._id,
+    };
+    try {
+      await axios.put(
+        `http://localhost:8800/api/users/${currentUser._id}/savePost`,
+        postData
+      );
+      if (save) {
+        userData.savePosts = userData.savePosts.filter((p) => p !== post._id);
+        console.log(userData.savePosts.filter((p) => p !== post._id));
+        setSave(false);
+      } else {
+        userData.savePosts.push(post._id);
+        setSave(true);
+      }
+      localStorage.setItem("user", JSON.stringify(userData));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useMemo(() => {
     if (dataChildUpdated._id === post?._id) {
       if (dataChildUpdated.desc) post.desc = dataChildUpdated.desc;
@@ -115,6 +141,11 @@ export default function Post({ post, sendDataToChildFromParent }) {
             <span className="postDate">{format(post?.createdAt)}</span>
           </div>
           <div className="postTopRight">
+            {currentUser._id !== post?.userId && (
+              <Button onClick={handleSavePost}>
+                {save ? "unSave" : "Save"}
+              </Button>
+            )}
             {currentUser._id === post?.userId && (
               <Dropdown>
                 <Dropdown.Toggle variant="light">

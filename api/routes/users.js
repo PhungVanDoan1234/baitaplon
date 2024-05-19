@@ -169,4 +169,35 @@ router.put("/:id/unfollow", async (req, res) => {
   }
 });
 
+// save post
+router.put("/:id/savePost", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user.savePosts.includes(req.body.postId)) {
+      await user.updateOne({ $push: { savePosts: req.body.postId } });
+      res.status(200).json("the post has been save");
+    } else {
+      await user.updateOne({ $pull: { savePosts: req.body.postId } });
+      res.status(200).json("the post has been unSave");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get savePost
+router.get("/:id/getAllSavePost", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const savePosts = await Promise.all(
+      user.savePosts.map(async (savePost) => {
+        return await Post.findById(savePost);
+      })
+    );
+    res.status(200).json(savePosts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

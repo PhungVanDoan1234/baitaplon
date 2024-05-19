@@ -22,6 +22,7 @@ import SettingsPage from "./pages/settingPage/SettingsPage";
 import Reviews from "./pages/reviews/Reviews";
 import EventPage from "./pages/event/EventPage";
 import GamePage from "./pages/gamePage/GamePage";
+import SavePostPage from "./pages/savePost/SavePostPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -86,6 +87,10 @@ function App() {
         <Route
           path="/gamePage"
           element={user ? <GamePage /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/savePostPage"
+          element={user ? <SavePostPage /> : <Navigate to="/login" />}
         ></Route>
       </Routes>
     </Router>
