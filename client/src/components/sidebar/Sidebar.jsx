@@ -12,6 +12,8 @@ import {
   Reviews,
   Gamepad,
   BookmarkAdded,
+  PlaylistAdd,
+  PlaylistAddCheckCircle,
 } from "@mui/icons-material";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { Link } from "react-router-dom";
@@ -49,10 +51,10 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Groups</span>
             </li>
           </Link>
-          <Link>
+          <Link to="/playListPage">
             <li className="sidebarListItem">
-              <Bookmark className="sidebarIcon" />
-              <span className="sidebarListItemText">Bookmarks</span>
+              <PlaylistAddCheckCircle className="sidebarIcon" />
+              <span className="sidebarListItemText">Play List</span>
             </li>
           </Link>
           <Link to="/savePostPage">
@@ -111,3 +113,4 @@ export default function Sidebar() {
             </li>
           </Link> */
 // HelpOutline
+// Bookmark
