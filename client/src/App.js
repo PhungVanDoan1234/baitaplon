@@ -24,6 +24,7 @@ import EventPage from "./pages/event/EventPage";
 import GamePage from "./pages/gamePage/GamePage";
 import SavePostPage from "./pages/savePost/SavePostPage";
 import PlayListPage from "./pages/playListPage/PlayListPage";
+import SidebarPage from "./pages/Sidebar/SidebarPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -96,6 +97,10 @@ function App() {
         <Route
           path="/playListPage"
           element={user ? <PlayListPage /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/bookmarks"
+          element={user ? <SidebarPage /> : <Navigate to="/login" />}
         ></Route>
       </Routes>
     </Router>

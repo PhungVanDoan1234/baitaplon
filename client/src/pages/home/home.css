@@ -1,4 +1,45 @@
-.homeContainer{
-    display: flex;
-    width: 100%;
+.homeContainer {
+  display: flex;
+  width: 100%;
+}
+
+/* phone */
+@media (max-width: 767px) {
+}
+
+/* phone and table */
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none;
+  }
+  .row.homeContainer {
+    width: 90%;
+    margin: auto;
+  }
+  .rightbar {
+    display: none;
+  }
+  .menuMobileTablet .sidebar {
+    display: block;
+    .sidebarWrapper {
+      padding: 0;
+    }
+    .sidebarListItem {
+      margin: 0;
+      padding: 11px 8px;
+      border-radius: 6px;
+      &:hover {
+        background-color: #ececec;
+      }
+    }
+  }
+  .topbarIconItem {
+    &.menuhead {
+      display: block;
+    }
+  }
+}
+
+/* table */
+@media (min-width: 768px) and (max-width: 1023px) {
 }

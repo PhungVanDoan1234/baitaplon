@@ -7,6 +7,14 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
+import {
+  Info,
+  InfoOutlined,
+  Phone,
+  PhoneAndroid,
+  VideoCall,
+  VideoCallRounded,
+} from "@mui/icons-material";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -16,8 +24,10 @@ export default function Messenger() {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
-  const { user } = useContext(AuthContext);
+  const { user, currentUserChart } = useContext(AuthContext);
   const scrollRef = useRef();
+
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
@@ -130,9 +140,15 @@ export default function Messenger() {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <input placeholder="Search for friends" className="chatMenuInput" />
-            {conversations.map((c, index) => (
-              <div key={index} onClick={() => setCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user} />
+            {conversations.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  console.log(conversations);
+                  setCurrentChat(item);
+                }}
+              >
+                <Conversation conversation={item} currentUser={user} />
               </div>
             ))}
           </div>
@@ -141,6 +157,19 @@ export default function Messenger() {
           <div className="chatBoxWrapper">
             {currentChat ? (
               <>
+                <div className="chatBoxUser">
+                  <div className="chatBoxUser_user">
+                    <span>
+                      <img src={PF + currentUserChart.profilePicture} />
+                    </span>
+                    <span> {currentUserChart.username}</span>
+                  </div>
+                  <div className="chatBoxUser_option">
+                    <Phone />
+                    <VideoCallRounded />
+                    <InfoOutlined />
+                  </div>
+                </div>
                 <div className="chatBoxTop">
                   {messages.map((m, index) => (
                     <div key={index} ref={scrollRef}>

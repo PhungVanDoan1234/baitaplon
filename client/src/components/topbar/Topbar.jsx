@@ -8,6 +8,7 @@ import {
   Notifications,
   Logout,
 } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AuthContext } from "../../context/AuthContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -126,6 +127,14 @@ export default function Topbar() {
               style={{ textDecoration: "none", color: "white" }}
             >
               <Notifications />
+            </Link>
+          </div>
+          <div className="topbarIconItem  menuhead">
+            <Link
+              to="/bookmarks"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <MenuIcon />
             </Link>
           </div>
           <div className="topbarIconItem" onClick={handleLogout}>

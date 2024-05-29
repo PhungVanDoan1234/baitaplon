@@ -7,11 +7,25 @@ import "./home.css";
 function Home() {
   return (
     <>
-      <Topbar />
-      <div className="homeContainer">
-        <Sidebar />
-        <Feed />
-        <Rightbar />
+      <div className="container-fluid " style={{ padding: 0 }}>
+        <div className="row">
+          <div className="col-lg-12 ">
+            <Topbar />
+          </div>
+        </div>
+        <div className="row homeContainer" style={{ marginTop: "50px" }}>
+          <div className="col-lg-3 sidebar">
+            <Sidebar />
+          </div>
+          <div className="col-lg-6">
+            {" "}
+            <Feed />
+          </div>
+          <div className="col-lg-3">
+            {" "}
+            <Rightbar />
+          </div>
+        </div>
       </div>
     </>
   );

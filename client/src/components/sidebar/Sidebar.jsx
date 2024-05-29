@@ -14,6 +14,7 @@ import {
   BookmarkAdded,
   PlaylistAdd,
   PlaylistAddCheckCircle,
+  Home,
 } from "@mui/icons-material";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { Link } from "react-router-dom";
@@ -33,6 +34,12 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
+          <Link to="/">
+            <li className="sidebarListItem">
+              <Home className="sidebarIcon" />
+              <span className="sidebarListItemText">Home</span>
+            </li>
+          </Link>
           <Link to="/feedPage">
             <li className="sidebarListItem">
               <RssFeed className="sidebarIcon" />

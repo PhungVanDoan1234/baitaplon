@@ -12,8 +12,8 @@
 }
 
 .profileCoverImg {
-  /* width: 100%; */
-  width: 1400px;
+  width: 100%;
+  /* width: 1400px; */
   height: 250px;
   object-fit: cover;
 }

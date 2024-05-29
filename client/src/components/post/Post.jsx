@@ -166,14 +166,24 @@ export default function Post({ post, sendDataToChildFromParent }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          {(post?.img.endsWith("png") ||
-            post?.img.endsWith("jpg") ||
-            post?.img.endsWith("jpeg")) && (
-            <img className="postImg" src={PF + post?.img} alt="" />
-          )}
-          {post?.img.endsWith("mp4") && (
-            <video controls className="postImg" src={PF + post?.img} alt="" />
-          )}
+
+          {post.img
+            ? (post?.img.endsWith("png") ||
+                post?.img.endsWith("jpg") ||
+                post?.img.endsWith("jpeg")) && (
+                <img className="postImg" src={PF + post?.img} alt="" />
+              )
+            : ""}
+          {post.img
+            ? post?.img.endsWith("mp4") && (
+                <video
+                  controls
+                  className="postImg"
+                  src={PF + post?.img}
+                  alt=""
+                />
+              )
+            : ""}
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

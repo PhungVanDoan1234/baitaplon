@@ -1,5 +1,4 @@
 .sologanFollowUser {
-  margin: 50px 0 30px;
   text-align: center;
   font-size: 34px;
   color: gray;
@@ -19,6 +18,20 @@
 }
 
 .itemFollowUser {
-  list-style-type: none;
-  margin: 10px 12px;
+  margin-bottom: 15px;
+}
+
+/* phone and table */
+@media (max-width: 1023px) {
+  .wrapperFollowUser {
+    margin: 0;
+  }
+  .sologanFollowUser {
+    font-size: 18px;
+    color: #000;
+    text-align: start;
+    margin: 0 69px 10px;
+    padding-top: 20px;
+    border-bottom: 1px solid #ccc;
+  }
 }
