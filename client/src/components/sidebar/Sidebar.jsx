@@ -72,7 +72,7 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Events</span>
             </li>
           </Link>
-          <Link to="/career" target="_blank">
+          <Link to="/career">
             <li className="sidebarListItem">
               <BusinessCenter className="sidebarIcon" />
               <span className="sidebarListItemText">Career</span>

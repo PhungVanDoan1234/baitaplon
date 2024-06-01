@@ -7,13 +7,12 @@ function Intro() {
   const textRef = useRef();
 
   useEffect(() => {
-    return () =>
-      init(textRef.current, {
-        showCursor: true,
-        backDelay: 1500,
-        backSpeed: 60,
-        strings: ["Developer", "Designer", "Content Creator"],
-      });
+    init(textRef.current, {
+      showCursor: true,
+      backDelay: 1500,
+      backSpeed: 60,
+      strings: ["Developer", "Designer", "Content Creator"],
+    });
   }, []);
 
   return (

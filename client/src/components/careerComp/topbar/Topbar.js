@@ -1,14 +1,15 @@
 import { Mail, Person } from "@mui/icons-material";
 import "./topbar.scss";
+import { Link } from "react-router-dom";
 
 function Topbar({ menuOpen, setMenuOpen }) {
   return (
     <div className={"topbar " + (menuOpen && "active")}>
       <div className="wrapper">
         <div className="left">
-          <a href="#intro" className="logo">
+          <Link to="/" className="logo">
             Social_D&T
-          </a>
+          </Link>
           <div className="itemContainer">
             <Person className="icon" />
             <span>++123 456 789</span>
