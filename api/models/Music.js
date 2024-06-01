@@ -7,11 +7,11 @@ const MusicSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    singer: {
+    artist: {
       type: String,
       required: true,
     },
-    music: {
+    url: {
       type: String,
     },
     img: {

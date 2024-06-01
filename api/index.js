@@ -13,7 +13,6 @@ const reviewRouter = require("./routes/reviews");
 const calendarRouter = require("./routes/calendars");
 const gameRouter = require("./routes/games");
 const musicRouter = require("./routes/musics");
-const groupMesseageRouter = require("./routes/groupMessages");
 const conversationsRoute = require("./routes/conversations");
 const messagesRoute = require("./routes/messages");
 const cors = require("cors");
@@ -91,7 +90,10 @@ dotenv.config();
 //     console.log("Connected to MongoDB");
 //   }
 // );
-mongoose.connect("mongodb://localhost:27017/");
+// mongoose.connect("mongodb://localhost:27017/");
+mongoose.connect(
+  "mongodb+srv://root:123@cluster0.g4kuqcq.mongodb.net/socialD?retryWrites=true&w=majority&appName=Cluster0"
+);
 
 app.use(
   cors({
@@ -147,7 +149,6 @@ app.use("/api/reviews", reviewRouter);
 app.use("/api/calendars", calendarRouter);
 app.use("/api/games", gameRouter);
 app.use("/api/musics", musicRouter);
-app.use("/api/groupMessages", groupMesseageRouter);
 app.use("/api/conversations", conversationsRoute);
 app.use("/api/messages", messagesRoute);
 

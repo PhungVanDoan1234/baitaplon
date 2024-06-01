@@ -5,7 +5,7 @@ import "./cardUser.css";
 
 function CardUser({ userOther, currentUser, handleClick }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  console.log(currentUser);
+  console.log(userOther);
   return (
     <Card>
       <Link

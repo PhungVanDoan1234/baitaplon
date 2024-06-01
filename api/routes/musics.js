@@ -12,7 +12,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-// update game
+// get all music
+router.get("/allMusic", async (req, res) => {
+  try {
+    const allMusic = await Music.find();
+    res.status(200).json(allMusic);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// update music
 router.put("/:id", async (req, res) => {
   try {
     const music = await Music.findById(req.params.id);
@@ -20,6 +30,21 @@ router.put("/:id", async (req, res) => {
     if (req.body.isAdmin === true) {
       await music.updateOne({ $set: newMusic });
       res.status(200).json("updated");
+    } else {
+      res.status(403).json("you aren't admin");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// detele music
+router.delete("/:id", async (req, res) => {
+  try {
+    const music = await Music.findById(req.params.id);
+    if (req.body.isAdmin === true) {
+      await music.deleteOne();
+      res.status(200).json("the music has been delete");
     } else {
       res.status(403).json("you aren't admin");
     }
