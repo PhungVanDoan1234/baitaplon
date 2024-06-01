@@ -16,7 +16,6 @@ import FollowUser from "./pages/followUser/FollowUser";
 import Notification from "./pages/notification/Notification";
 import FeedPage from "./pages/feedPage/FeedPage";
 import VideoPage from "./pages/videoPage/VideoPage";
-import GroupPage from "./pages/groupPage/GroupPage";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import SettingsPage from "./pages/settingPage/SettingsPage";
 import Reviews from "./pages/reviews/Reviews";
@@ -24,6 +23,8 @@ import EventPage from "./pages/event/EventPage";
 import GamePage from "./pages/gamePage/GamePage";
 import SavePostPage from "./pages/savePost/SavePostPage";
 import PlayListPage from "./pages/playListPage/PlayListPage";
+import Career from "./pages/careers/Career";
+import Map from "./pages/map/Map";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -66,10 +67,6 @@ function App() {
           element={user ? <VideoPage /> : <Navigate to="/login" />}
         ></Route>
         <Route
-          path="/groupPage"
-          element={user ? <GroupPage /> : <Navigate to="/login" />}
-        ></Route>
-        <Route
           path="/aboutUs"
           element={user ? <AboutUs /> : <Navigate to="/login" />}
         ></Route>
@@ -96,6 +93,14 @@ function App() {
         <Route
           path="/playListPage"
           element={user ? <PlayListPage /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/career"
+          element={user ? <Career /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path="/map"
+          element={user ? <Map /> : <Navigate to="/login" />}
         ></Route>
       </Routes>
     </Router>

@@ -3,17 +3,20 @@ import {
   RssFeed,
   PlayCircleFilledOutlined,
   Group,
-  Bookmark,
-  HelpOutline,
-  WorkOutline,
   Event,
-  School,
   Settings,
   Reviews,
   Gamepad,
   BookmarkAdded,
-  PlaylistAdd,
   PlaylistAddCheckCircle,
+  BusinessCenter,
+  Bookmark,
+  HelpOutline,
+  WorkOutline,
+  School,
+  PlaylistAdd,
+  Map,
+  PersonPinCircle,
 } from "@mui/icons-material";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { Link } from "react-router-dom";
@@ -45,12 +48,6 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Videos</span>
             </li>
           </Link>
-          <Link to="/groupPage">
-            <li className="sidebarListItem">
-              <Group className="sidebarIcon" />
-              <span className="sidebarListItemText">Groups</span>
-            </li>
-          </Link>
           <Link to="/playListPage">
             <li className="sidebarListItem">
               <PlaylistAddCheckCircle className="sidebarIcon" />
@@ -73,6 +70,18 @@ export default function Sidebar() {
             <li className="sidebarListItem">
               <Event className="sidebarIcon" />
               <span className="sidebarListItemText">Events</span>
+            </li>
+          </Link>
+          <Link to="/career" target="_blank">
+            <li className="sidebarListItem">
+              <BusinessCenter className="sidebarIcon" />
+              <span className="sidebarListItemText">Career</span>
+            </li>
+          </Link>
+          <Link to="/map">
+            <li className="sidebarListItem">
+              <PersonPinCircle className="sidebarIcon" />
+              <span className="sidebarListItemText">Map</span>
             </li>
           </Link>
           <Link to="/reviews">
@@ -103,14 +112,12 @@ export default function Sidebar() {
 }
 
 /* <button className="sidebarButton">Show More</button> */
-
 // icon rating
-
-/* <Link>
-            <li className="sidebarListItem">
-              <School className="sidebarIcon" />
-              <span className="sidebarListItemText">Courses</span>
-            </li>
-          </Link> */
 // HelpOutline
 // Bookmark
+/* <Link>
+  <li className="sidebarListItem">
+      <School className="sidebarIcon" />
+  <span className="sidebarListItemText">Courses</span>
+</li>
+</Link> */
