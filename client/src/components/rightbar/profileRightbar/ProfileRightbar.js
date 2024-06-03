@@ -1,10 +1,11 @@
 import { Add, Remove } from "@mui/icons-material";
 import { followUser } from "../../../apiCall";
-import { useContext, useEffect, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
 import "./profileRightbar.css";
 import axios from "axios";
+import { Button } from "@mui/material";
 
 function ProfileRightbar({ user, friends }) {
   const { user: currentUser, dispatch } = useContext(AuthContext);
@@ -16,17 +17,20 @@ function ProfileRightbar({ user, friends }) {
     followUser(followed, user._id, currentUser._id, dispatch);
   };
 
-  const handleClickMessage = async () => {
-    try {
-      const data = {
-        senderId: currentUser._id,
-        receiverId: user._id,
-      };
-      await axios.post(`http://localhost:8800/api/conversations/`, data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const handleClickMessage = useCallback(() => {
+    const createConversation = async () => {
+      try {
+        const data = {
+          senderId: currentUser._id,
+          receiverId: user._id,
+        };
+        await axios.post(`http://localhost:8800/api/conversations/`, data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    createConversation();
+  }, [currentUser, user]);
 
   useEffect(() => {
     const handleCoversation = async () => {
@@ -42,6 +46,20 @@ function ProfileRightbar({ user, friends }) {
     handleCoversation();
   }, [currentUser]);
 
+  const hanldeDeleteAcoutOfUser = async () => {
+    if (window.confirm("you sure!!!")) {
+      try {
+        await axios.delete(`http://localhost:8800/api/users/${user._id}`, {
+          data: {
+            isAdmin: currentUser.isAdmin,
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <>
       {user.username !== currentUser.username && (
@@ -51,7 +69,7 @@ function ProfileRightbar({ user, friends }) {
         </button>
       )}
       {currentUser._id !== user._id &&
-        (conversation.some((c) => c.members[1] === user._id) ? (
+        (conversation.some((c) => c.members[0 && 1] === user._id) ? (
           <button className="rightbarMessageButton">
             <Link to="/messenger">message</Link>
           </button>
@@ -63,7 +81,18 @@ function ProfileRightbar({ user, friends }) {
             <Link to="/messenger">message</Link>
           </button>
         ))}
-      <h4 className="rightbarTitle">User information</h4>
+      {currentUser.isAdmin && currentUser._id !== user._id && (
+        <Button
+          variant="contained"
+          color="error"
+          style={{ margin: "10px 0" }}
+          onClick={hanldeDeleteAcoutOfUser}
+        >
+          deleteAcount
+        </Button>
+      )}
+      <h4 className="rightbarTitle">User information </h4>
+
       <div className="rightbarInfo">
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">City:</span>
@@ -75,13 +104,7 @@ function ProfileRightbar({ user, friends }) {
         </div>
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">Relationship:</span>
-          <span className="rightbarInfoValue">
-            {user.relationship === 1
-              ? "Single"
-              : user.relationship === 2
-              ? "Married"
-              : "-"}
-          </span>
+          <span className="rightbarInfoValue">{user.relationship}</span>
         </div>
       </div>
       <h4 className="rightbarTitle">User follower</h4>
@@ -111,4 +134,4 @@ function ProfileRightbar({ user, friends }) {
   );
 }
 
-export default ProfileRightbar;
+export default memo(ProfileRightbar);
