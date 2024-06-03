@@ -92,7 +92,7 @@ export default function Profile() {
         ...prevUser,
         ...newUserInfo,
       }));
-      console.log(user.desc);
+      setShowUpdateInfo(false);
     } catch (err) {
       console.log(err);
     }
