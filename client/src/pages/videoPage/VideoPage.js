@@ -5,6 +5,9 @@ import axios from "axios";
 
 function VideoPage() {
   const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState();
+
   useEffect(() => {
     const getAllPost = async () => {
       try {
@@ -18,15 +21,35 @@ function VideoPage() {
     };
     getAllPost();
   }, []);
-  const videoPost = posts.filter((p) => p?.img.endsWith("mp4"));
+  const videoPost = posts.filter((p) => p?.img?.endsWith("mp4"));
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value) {
+      const result = videoPost.filter((post) =>
+        post.desc.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchResult(result);
+    } else {
+      setSearchResult([...videoPost]);
+    }
+  };
   console.log(videoPost);
   return (
-    <Wrapper>
-      {videoPost.map((p) => (
-        <div style={{ margin: "0 120px" }}>
+    <Wrapper sologan={"Video page"}>
+      <div style={{ margin: "0 120px" }}>
+        <input
+          placeholder="search post"
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+          style={{ outline: "none", border: "none", fontSize: "20px" }}
+        />
+        {(searchResult ? searchResult : videoPost).map((p) => (
           <Post post={p} key={p?._id} />
-        </div>
-      ))}
+        ))}
+      </div>
     </Wrapper>
   );
 }

@@ -147,13 +147,13 @@ export const postNewComment = async (
 
 export const deleteComment = async (
   commentId,
-  currentUserId,
+  currentUser,
   comments,
   setComments
 ) => {
   try {
     await axios.delete(`http://localhost:8800/api/comments/${commentId}`, {
-      data: { userId: currentUserId },
+      data: { userId: currentUser._id, isAdmin: currentUser.isAdmin },
     });
     setComments(comments.filter((comment) => comment._id !== commentId));
   } catch (err) {
@@ -164,15 +164,23 @@ export const deleteComment = async (
 export const updateComment = async (
   commentId,
   UpdateText,
-  currentUserId,
+  currentUser,
   comments,
   setComments
 ) => {
   try {
-    await axios.put(`http://localhost:8800/api/comments/${commentId}`, {
-      userId: currentUserId,
-      text: UpdateText,
-    });
+    await axios.put(
+      `http://localhost:8800/api/comments/${commentId}`,
+      currentUser.isAdmin
+        ? {
+            isAdmin: currentUser.isAdmin,
+            text: UpdateText,
+          }
+        : {
+            userId: currentUser._id,
+            text: UpdateText,
+          }
+    );
     setComments(
       comments.map((comment) => {
         if (comment._id === commentId) {
@@ -215,10 +223,10 @@ export const likePost = async (userId, postId) => {
   }
 };
 
-export const deletePost = async (postId, userId) => {
+export const deletePost = async (postId, userId, isAdmin) => {
   try {
     await axios.delete(`http://localhost:8800/api/posts/${postId}`, {
-      data: { userId: userId },
+      data: { isAdmin: isAdmin, userId: userId },
     });
   } catch (err) {
     console.log(err);

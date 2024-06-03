@@ -31,6 +31,8 @@ export default function Post({ post, sendDataToChildFromParent }) {
   let userData = JSON.parse(localStorage.getItem("user"));
   let userPostData = JSON.parse(localStorage.getItem("userPost"));
   const [save, setSave] = useState(userData.savePosts.includes(post._id));
+  const [hideComments, setHideComments] = useState(post.visibleComment);
+  let showAndHideComments = post.visibleComment;
 
   useEffect(() => {
     setIsLiked(post?.likes?.includes(currentUser._id));
@@ -53,7 +55,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
 
   const handleDeletePost = async () => {
     deleteFile(post.img);
-    deletePost(post?._id, currentUser._id);
+    deletePost(post?._id, currentUser._id, currentUser.isAdmin);
     userPostData = userPostData.filter(
       (userPost) => userPost._id !== post?._id
     );
@@ -112,6 +114,24 @@ export default function Post({ post, sendDataToChildFromParent }) {
     }
   }, [dataChildUpdated, post]);
 
+  const handleShowAndHideComments = async () => {
+    const newPost = currentUser.isAdmin
+      ? {
+          isAdmin: currentUser.isAdmin,
+          visibleComment: !showAndHideComments,
+        }
+      : {
+          userId: currentUser.userId,
+          visibleComment: !showAndHideComments,
+        };
+    try {
+      await axios.put(`http://localhost:8800/api/posts/${post._id}`, newPost);
+      setHideComments(!hideComments);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="post">
       {showUpdate && (
@@ -141,12 +161,12 @@ export default function Post({ post, sendDataToChildFromParent }) {
             <span className="postDate">{format(post?.createdAt)}</span>
           </div>
           <div className="postTopRight">
-            {currentUser._id !== post?.userId && (
+            {currentUser._id !== post?.userId && !currentUser.isAdmin && (
               <Button onClick={handleSavePost}>
                 {save ? "unSave" : "Save"}
               </Button>
             )}
-            {currentUser._id === post?.userId && (
+            {(currentUser._id === post?.userId || currentUser.isAdmin) && (
               <Dropdown>
                 <Dropdown.Toggle variant="light">
                   <MoreVert />
@@ -159,6 +179,14 @@ export default function Post({ post, sendDataToChildFromParent }) {
                   <Dropdown.Item onClick={handleDeletePost}>
                     Delete Post
                   </Dropdown.Item>
+                  <Dropdown.Item onClick={handleShowAndHideComments}>
+                    {hideComments ? "Hide Comments" : "Show Comments"}
+                  </Dropdown.Item>
+                  {currentUser._id !== post?.userId && (
+                    <Dropdown.Item onClick={handleSavePost}>
+                      {save ? "unSave" : "Save"}
+                    </Dropdown.Item>
+                  )}
                 </Dropdown.Menu>
               </Dropdown>
             )}
@@ -166,12 +194,12 @@ export default function Post({ post, sendDataToChildFromParent }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          {(post?.img.endsWith("png") ||
-            post?.img.endsWith("jpg") ||
-            post?.img.endsWith("jpeg")) && (
+          {(post?.img?.endsWith("png") ||
+            post?.img?.endsWith("jpg") ||
+            post?.img?.endsWith("jpeg")) && (
             <img className="postImg" src={PF + post?.img} alt="" />
           )}
-          {post?.img.endsWith("mp4") && (
+          {post?.img?.endsWith("mp4") && (
             <video controls className="postImg" src={PF + post?.img} alt="" />
           )}
         </div>
@@ -192,11 +220,13 @@ export default function Post({ post, sendDataToChildFromParent }) {
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText" onClick={handleShowComment}>
-              {dataChild.length !== 0
-                ? dataChild.length + " comments"
-                : comments.length + " comments"}
-            </span>
+            {hideComments && (
+              <span className="postCommentText" onClick={handleShowComment}>
+                {dataChild.length !== 0
+                  ? dataChild.length + " comments"
+                  : comments.length + " comments"}
+              </span>
+            )}
           </div>
         </div>
         {showComments && (
