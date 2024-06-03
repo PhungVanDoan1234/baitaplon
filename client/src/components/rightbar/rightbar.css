@@ -4,9 +4,12 @@
   overflow-y: scroll;
   position: sticky;
   top: 50px;
+  position: sticky;
+  top: 25px;
 }
 
 .rightbarWrapper {
   padding: 20px 20px 0 0;
-  position: fixed;
+  position: sticky;
+  top: 25px;
 }

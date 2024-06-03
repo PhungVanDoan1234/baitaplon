@@ -108,12 +108,14 @@ export default function Sidebar() {
         <Link to="/otherUser">
           <div className="sidebarShowAll">Other user</div>
         </Link>
+        {/* <div className="otherUser"> */}
         <ul className="sidebarFriendList">
           {userOthers.slice(0, 8).map((u) => (
             <CloseFriend key={u._id} user={u} />
           ))}
         </ul>
       </div>
+      {/* </div> */}
     </div>
   );
 }

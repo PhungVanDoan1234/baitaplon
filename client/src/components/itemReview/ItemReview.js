@@ -36,7 +36,7 @@ function ItemReview({ review, onDelete, onUpdate }) {
   };
 
   return (
-    <Alert style={{ margin: "30px 50px" }}>
+    <Alert className="reviewItem">
       <Link to={`/profile/${user?.username}`}>
         <img
           src={PF + user?.profilePicture}

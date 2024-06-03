@@ -30,3 +30,10 @@
   height: 400px;
   object-fit: cover;
 }
+.reviewItem {
+  width: 75%;
+  margin: 20px auto;
+  background: #fff;
+  border: none;
+  box-shadow: 0 0 6px #ccc;
+}

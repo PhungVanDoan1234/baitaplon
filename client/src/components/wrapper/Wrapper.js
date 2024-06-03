@@ -5,7 +5,7 @@ import "./wrapper.css";
 
 function Wrapper({ sologan, children }) {
   return (
-    <>
+    <div className="container-fluid">
       <Topbar></Topbar>
       <div className="wrapp">
         <div className="wrapperSideBar">
@@ -18,7 +18,7 @@ function Wrapper({ sologan, children }) {
           {children}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

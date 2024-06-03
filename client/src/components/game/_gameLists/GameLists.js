@@ -17,8 +17,9 @@ function GameLists({ game, onHandle, onDelete, onUpdate }) {
       <Button
         onClick={() => setShowHandleGame(!showHandleGame)}
         className="buttonHandleGameAndTarget"
+        style={{ color: "#000", width: "100%" }}
       >
-        +
+        Hướng dẫn
       </Button>
       {currentUser.isAdmin && (
         <>
@@ -31,10 +32,10 @@ function GameLists({ game, onHandle, onDelete, onUpdate }) {
         </>
       )}
       {showHandleGame && (
-        <>
+        <div style={{ padding: "0 10px" }}>
           <p>{game.target}</p>
           <p>{game.handle}</p>
-        </>
+        </div>
       )}
     </>
   );

@@ -144,7 +144,7 @@ export default function Messenger() {
               <div
                 key={index}
                 onClick={() => {
-                  console.log(conversations);
+                  console.log(item);
                   setCurrentChat(item);
                 }}
               >
@@ -157,7 +157,7 @@ export default function Messenger() {
           <div className="chatBoxWrapper">
             {currentChat ? (
               <>
-                <div className="chatBoxUser">
+                {/* <div className="chatBoxUser">
                   <div className="chatBoxUser_user">
                     <span>
                       <img src={PF + currentUserChart.profilePicture} />
@@ -169,7 +169,7 @@ export default function Messenger() {
                     <VideoCallRounded />
                     <InfoOutlined />
                   </div>
-                </div>
+                </div> */}
                 <div className="chatBoxTop">
                   {messages.map((m, index) => (
                     <div key={index} ref={scrollRef}>

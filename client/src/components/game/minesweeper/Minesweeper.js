@@ -48,7 +48,7 @@ function Minesweeper() {
     if (gameOver || board[row][col].revealed) return;
     if (board[row][col].value === "M") {
       setGameOver(true);
-      alert("Game Over!");
+      // alert("Game Over!");
       return;
     }
     const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
@@ -116,12 +116,14 @@ function Minesweeper() {
           </div>
         ))}
       </div>
-      <button
-        onClick={resetGame}
-        style={{ margin: "20px auto", display: "flex" }}
-      >
-        Reset
-      </button>
+      {gameOver && (
+        <button
+          onClick={resetGame}
+          style={{ margin: "20px auto", display: "flex" }}
+        >
+          Reset
+        </button>
+      )}
     </div>
   );
 }

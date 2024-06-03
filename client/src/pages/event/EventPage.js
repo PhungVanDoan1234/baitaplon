@@ -6,6 +6,7 @@ import "./eventPage.css";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { Alert, Button } from "@mui/material";
+import dayjs from "dayjs";
 
 function EventPage() {
   const { user: currentUser } = useContext(AuthContext);
@@ -113,40 +114,64 @@ function EventPage() {
   return (
     <Wrapper sologan={"Calendar"}>
       <div className="calendar">
-        <Button
-          onClick={() => setShowCreateDateSchedule(!showCreateDateSchedule)}
-        >
-          Create DateSchedule
-        </Button>
-        <br />
-        {showCreateDateSchedule && (
-          <textarea
-            type="text"
-            ref={inputRef}
-            onKeyDown={handleKey}
-            className="textDataSchedule"
-            placeholder="write noted"
-          />
-        )}
+        <div className="createEvent">
+          {" "}
+          <Button
+            onClick={() => setShowCreateDateSchedule(!showCreateDateSchedule)}
+          >
+            Create DateSchedule
+          </Button>
+          {showCreateDateSchedule && (
+            <textarea
+              type="text"
+              ref={inputRef}
+              onKeyDown={handleKey}
+              className="textDataSchedule"
+              placeholder="write noted"
+            />
+          )}
+        </div>
         <Calendar onChange={onChange} value={date} />
-        <Button onClick={() => setShowAndHide(!showAndHide)}>
-          {showAndHide ? "hide" : "show"}
-        </Button>
-        {(showAndHide ? dateSchedules : dateSchedules.slice(0, 2)).map((d) => (
-          <div key={d._id} className="dateSchedule">
-            <Alert className="dateScheduleAlert" severity="info">
-              Ngày: {new Date(d.date).toDateString()} <br /> noted : {d.text}
-            </Alert>
-            <div className="buttonHandle">
-              <Button onClick={() => hanldeUpdateDateSchedule(d)}>
-                Update
-              </Button>
-              <Button onClick={() => hanldeDeleteDateSchedule(d)}>
-                delete
-              </Button>
-            </div>
-          </div>
-        ))}
+        <div className="eventlist">
+          <table>
+            <tr>
+              <th>Thời gian</th>
+              <th>Công việc</th>
+              <th>Tùy chọn</th>
+            </tr>
+            {(showAndHide ? dateSchedules : dateSchedules.slice(0, 2)).map(
+              (d) => (
+                <tr key={d._id}>
+                  <td>{dayjs(d.date).format("DD/MM/YYYY ")} </td>
+                  <td>{d.text}</td>
+                  <td>
+                    <div className="buttonHandle">
+                      <Button onClick={() => hanldeUpdateDateSchedule(d)}>
+                        Update
+                      </Button>
+                      <Button
+                        className="text-danger"
+                        onClick={() => hanldeDeleteDateSchedule(d)}
+                      >
+                        delete
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              )
+            )}
+            <tr>
+              <td colSpan={3}>
+                <Button
+                  onClick={() => setShowAndHide(!showAndHide)}
+                  style={{ color: "#000", textDecoration: " underline" }}
+                >
+                  {showAndHide ? "<< Ẩn bớt" : "Xem thêm >>"}
+                </Button>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </Wrapper>
   );

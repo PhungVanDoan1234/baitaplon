@@ -19,17 +19,20 @@
   .rightbar {
     display: none;
   }
-  .menuMobileTablet .sidebar {
-    display: block;
-    .sidebarWrapper {
-      padding: 0;
-    }
-    .sidebarListItem {
-      margin: 0;
-      padding: 11px 8px;
-      border-radius: 6px;
-      &:hover {
-        background-color: #ececec;
+  .row .menuMobileTablet {
+    padding-left: 40px;
+    .sidebar {
+      display: block;
+      .sidebarWrapper {
+        padding: 0;
+      }
+      .sidebarListItem {
+        margin: 0;
+        padding: 11px 8px;
+        border-radius: 6px;
+        &:hover {
+          background-color: #ececec;
+        }
       }
     }
   }

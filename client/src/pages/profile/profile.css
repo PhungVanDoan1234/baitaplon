@@ -93,3 +93,30 @@
 .changeAvatar:hover {
   background-color: rgb(175, 166, 166);
 }
+
+/* phone and table */
+@media (max-width: 1023px) {
+  .changeCoverPicture {
+    width: initial;
+    height: initial;
+    & svg {
+      width: 40px;
+      height: 40px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  .changeAvatar:hover,
+  .changeCoverPicture:hover {
+    background-color: transparent;
+  }
+  .changeAvatar {
+    background-color: transparent;
+    bottom: 25px;
+    right: 350px;
+    color: #ccc;
+    & svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
