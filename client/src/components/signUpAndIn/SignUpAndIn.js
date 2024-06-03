@@ -5,9 +5,9 @@ function SignUpAndIn({ children }) {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">CodeCuaDoan</h3>
+          <h3 className="loginLogo">Social_D&T</h3>
           <span className="loginDesc">
-            Connect with friends and the world around you on CodeCuaDoan.
+            Connect with friends and the world around you on Social_D&T.
           </span>
         </div>
         <div className="loginRight">{children}</div>

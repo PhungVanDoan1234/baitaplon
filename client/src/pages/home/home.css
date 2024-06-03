@@ -4,7 +4,10 @@
 }
 
 /* phone */
-@media (max-width: 767px) {
+@media (max-width: 739px) {
+  .row.homeContainer {
+    width: 100%;
+  }
 }
 
 /* phone and table */

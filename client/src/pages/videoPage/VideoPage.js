@@ -22,11 +22,13 @@ function VideoPage() {
   console.log(videoPost);
   return (
     <Wrapper>
-      {videoPost.map((p) => (
-        <div style={{ margin: "0 120px" }}>
-          <Post post={p} key={p?._id} />
-        </div>
-      ))}
+      <div style={{ marginTop: "70px" }}>
+        {videoPost.map((p) => (
+          <div style={{ margin: "0 120px" }}>
+            <Post post={p} key={p?._id} />
+          </div>
+        ))}
+      </div>
     </Wrapper>
   );
 }

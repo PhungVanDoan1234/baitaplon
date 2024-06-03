@@ -11,15 +11,23 @@ import "./career.scss";
 function Career() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className="career">
-      <Topbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <div className="sections_career">
-        <Intro />
-        <Portfolio />
-        <Works />
-        <Testimonials />
-        <Contact />
+    <div className="container-fluid" style={{ padding: "0" }}>
+      <div className="career">
+        <Topbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <div className="row">
+          <div className="sections_career">
+            <Intro />
+
+            <Portfolio />
+
+            <Works />
+
+            <Testimonials />
+
+            <Contact />
+          </div>
+        </div>
       </div>
     </div>
   );

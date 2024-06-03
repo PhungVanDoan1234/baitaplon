@@ -11,17 +11,21 @@ function Contact() {
   };
   return (
     <div id="contact" className="contact">
-      <div className="left">
-        <img src={`${PF}imgCareer/shake.svg`} alt="" />
+      <div className="col-lg-6 col-md-6">
+        <div className="left">
+          <img src={`${PF}imgCareer/shake.svg`} alt="" />
+        </div>
       </div>
-      <div className="right">
-        <h2>Contact.</h2>
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Email" />
-          <textarea placeholder="Message"></textarea>
-          <button type="submit">Send</button>
-          {message && <span>Thanks, I'll reply ASAP :)</span>}
-        </form>
+      <div className="col-lg-6 col-md-6">
+        <div className="right">
+          <h2>Contact.</h2>
+          <form onSubmit={handleSubmit}>
+            <input type="text" placeholder="Email" />
+            <textarea placeholder="Message"></textarea>
+            <button type="submit">Send</button>
+            {message && <span>Thanks, I'll reply ASAP :)</span>}
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -62,7 +62,7 @@
 /* phone and table */
 @media (max-width: 1023px) {
   #root .container-fluid {
-    padding: 0;
+    padding: initial;
     height: 100vh;
   }
   .listGame {

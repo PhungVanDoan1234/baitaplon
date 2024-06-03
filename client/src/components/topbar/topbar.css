@@ -140,3 +140,32 @@
   background-color: #1877f2;
   color: white;
 }
+
+@media (max-width: 739px) {
+  .linkProfile,
+  .topbarIconItemLogout {
+    display: none;
+  }
+  .searchbar {
+    width: 30px;
+    overflow: hidden;
+    justify-content: center;
+  }
+  .mobisearch.searchbar {
+    width: 100%;
+  }
+  .logo {
+    font-size: 22px;
+  }
+  #root .container-fluid {
+    padding: initial;
+  }
+  .topbarRight {
+    justify-content: end;
+    flex: 0;
+  }
+  .topbarCenter {
+    flex: 0;
+    margin-right: 20px;
+  }
+}

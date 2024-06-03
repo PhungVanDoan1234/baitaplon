@@ -22,14 +22,14 @@ function GameLists({ game, onHandle, onDelete, onUpdate }) {
         Hướng dẫn
       </Button>
       {currentUser.isAdmin && (
-        <>
+        <div className="activeDeletegame">
           <Button onClick={onDelete}>
             <Delete />
           </Button>
           <Button onClick={onUpdate}>
             <Update />
           </Button>
-        </>
+        </div>
       )}
       {showHandleGame && (
         <div style={{ padding: "0 10px" }}>

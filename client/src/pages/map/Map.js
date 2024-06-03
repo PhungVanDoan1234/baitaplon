@@ -17,19 +17,21 @@ L.Marker.prototype.options.icon = DefaultIcon;
 function Map() {
   return (
     <Wrapper sologan={"My Schooll 🏩"}>
-      <MapContainer
-        center={[21.00321, 105.84774]}
-        zoom={23}
-        style={{ height: "80%", width: "100%" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <Marker position={[21.00321, 105.84774]}>
-          <Popup>Trường Cao Đẳng Nghề back Khoa Hà Nội 🏨</Popup>
-        </Marker>
-      </MapContainer>
+      <div style={{ height: "100vh" }}>
+        <MapContainer
+          center={[21.00321, 105.84774]}
+          zoom={23}
+          style={{ height: "80%", width: "100%" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Marker position={[21.00321, 105.84774]}>
+            <Popup>Trường Cao Đẳng Nghề back Khoa Hà Nội 🏨</Popup>
+          </Marker>
+        </MapContainer>
+      </div>
     </Wrapper>
   );
 }

@@ -3,6 +3,7 @@
 .intro {
   background-color: white;
   display: flex;
+  align-items: center;
 
   @include mobile {
     flex-direction: column;
@@ -95,7 +96,7 @@
     a {
       position: absolute;
       bottom: 10px;
-      left: 40%;
+      left: 58%;
 
       img {
         width: 30px;

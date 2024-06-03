@@ -17,7 +17,7 @@ function Home() {
           <div className="col-lg-3 sidebar">
             <Sidebar />
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 col-12">
             {" "}
             <Feed />
           </div>
