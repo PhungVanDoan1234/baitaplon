@@ -8,15 +8,30 @@
   list-style: none;
   font-style: italic;
   width: 80%;
-  margin-left: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0 20px;
+  margin: auto;
+  margin-bottom: 50px;
 }
 
 .ItemListGame {
   margin: 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 125px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: self-start;
+  cursor: pointer;
 }
 
 .ItemListGame .MuiPaper-root {
   font-size: 20px;
+  background: rgb(233 233 233 / 50%);
+  width: 100%;
+  flex: 1;
 }
 
 .titleGame {
@@ -42,4 +57,15 @@
 .InputListCreateOrUpdateGame input,
 .InputListCreateOrUpdateGame textarea:focus {
   outline: none;
+}
+
+/* phone and table */
+@media (max-width: 1023px) {
+  #root .container-fluid {
+    padding: initial;
+    height: 100vh;
+  }
+  .listGame {
+    width: 100%;
+  }
 }

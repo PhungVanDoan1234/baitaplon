@@ -37,17 +37,19 @@ function Testimonials() {
     <div className="testimonials" id="testimonials">
       <h1>Member</h1>
       <div className="container">
-        {data.map((d) => (
-          <div className={d.featured ? "card featured" : "card"}>
-            <div className="top">
-              <img src={`${PFIC}/right-arrow.png`} className="left" alt="" />
-              <img src={d.img} alt="" className="user" />
-              <img src={d.icon} alt="" className="right" />
-            </div>
-            <div className="center">{d.desc}</div>
-            <div className="bottom">
-              <h3>{d.name}</h3>
-              <h4>{d.title}</h4>
+        {data.map((d, index) => (
+          <div key={index} className="col-md-4 col-lg-4">
+            <div className={d.featured ? "card featured" : "card"}>
+              <div className="top">
+                <img src={`${PFIC}/right-arrow.png`} className="left" alt="" />
+                <img src={d.img} alt="" className="user" />
+                <img src={d.icon} alt="" className="right" />
+              </div>
+              <div className="center">{d.desc}</div>
+              <div className="bottom">
+                <h3>{d.name}</h3>
+                <h4>{d.title}</h4>
+              </div>
             </div>
           </div>
         ))}

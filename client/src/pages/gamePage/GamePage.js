@@ -148,21 +148,30 @@ function GamePage() {
         </div>
       )}
       {!selectedGame ? (
-        <ul className="listGame">
-          {(showAndHide ? allGame.slice(0, 5) : allGame).map((g) => (
-            <li className="ItemListGame" key={allGame.idGame}>
-              <GameLists
-                game={g}
-                onHandle={setSelectedGame}
-                onDelete={() => handleDeleteGame(g._id)}
-                onUpdate={() => handleUpdateGame(g._id)}
-              ></GameLists>
-            </li>
-          ))}
-          <Button onClick={() => setShowAndHide(!showAndHide)}>
-            {showAndHide ? "show" : "hide"}
-          </Button>
-        </ul>
+        <div className="container">
+          <ul className="listGame">
+            <div className="row">
+              {(showAndHide ? allGame.slice(0, 5) : allGame).map((g) => (
+                <div className="col-xl-4 col-md-4">
+                  <li className="ItemListGame" key={allGame.idGame}>
+                    <GameLists
+                      game={g}
+                      onHandle={setSelectedGame}
+                      onDelete={() => handleDeleteGame(g._id)}
+                      onUpdate={() => handleUpdateGame(g._id)}
+                    ></GameLists>
+                  </li>
+                </div>
+              ))}
+            </div>
+            <Button
+              style={{ color: "#000" }}
+              onClick={() => setShowAndHide(!showAndHide)}
+            >
+              {showAndHide ? "xem thêm >>" : "<< ẩn bớt"}
+            </Button>
+          </ul>{" "}
+        </div>
       ) : (
         <>
           {selectedGame === "ClickTheCircle" && <ClicktheCircle />}
@@ -180,7 +189,7 @@ function GamePage() {
             onClick={handleCancel}
             style={{ position: "absolute", top: "140px", right: "50px" }}
           >
-            Cancel
+            thoát
           </Button>
         </>
       )}

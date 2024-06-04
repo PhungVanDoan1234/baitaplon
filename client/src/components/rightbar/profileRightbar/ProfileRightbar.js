@@ -116,24 +116,26 @@ function ProfileRightbar({ user, friends }) {
       <h4 className="rightbarTitle">User follower</h4>
       <div className="rightbarFollowings">
         {friends.slice(0, 8).map((friend) => (
-          <Link
-            to={"/profile/" + friend.username}
-            style={{ textDecoration: "none" }}
-            key={friend._id}
-          >
-            <div className="rightbarFollowing">
-              <img
-                src={
-                  friend.profilePicture
-                    ? PF + friend.profilePicture
-                    : PF + "person/noAvatar.png"
-                }
-                alt=""
-                className="rightbarFollowingImg"
-              />
-              <span className="rightbarFollowingName">{friend.username}</span>
-            </div>
-          </Link>
+          <div className="col-xl-4 col-md-6" style={{ padding: "0 5px" }}>
+            <Link
+              to={"/profile/" + friend.username}
+              style={{ textDecoration: "none" }}
+              key={friend._id}
+            >
+              <div className="rightbarFollowing">
+                <img
+                  src={
+                    friend.profilePicture
+                      ? PF + friend.profilePicture
+                      : PF + "person/noAvatar.png"
+                  }
+                  alt=""
+                  className="rightbarFollowingImg"
+                />
+                <span className="rightbarFollowingName">{friend.username}</span>
+              </div>
+            </Link>
+          </div>
         ))}
       </div>
     </>

@@ -24,22 +24,29 @@ function FollowUser() {
   return (
     <>
       <Topbar></Topbar>
-      <p className="sologanFollowUser">
-        <i>My friends </i>😉😉😉
-      </p>
-      <div className="followUser">
-        <div className="wrapperFollowUser">
-          <ul className="listFollowUser">
-            {friends.map((friend) => (
-              <li className="itemFollowUser" key={friend._id}>
-                <CardUser
-                  userOther={friend}
-                  currentUser={currentUser}
-                  handleClick={handleClick}
-                />
-              </li>
-            ))}
-          </ul>
+      <div style={{ marginTop: "50px" }}>
+        <p className="sologanFollowUser">
+          <i>My friends </i>
+        </p>
+        <div className={"container"}>
+          <div className="followUser">
+            <div className="wrapperFollowUser">
+              <div className="row listFollowUser">
+                {friends.map((friend) => (
+                  <div
+                    className="itemFollowUser col-lg-3 col-md-4"
+                    key={friend._id}
+                  >
+                    <CardUser
+                      userOther={friend}
+                      currentUser={currentUser}
+                      handleClick={handleClick}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

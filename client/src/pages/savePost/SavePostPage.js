@@ -23,7 +23,7 @@ function SavePostPage() {
 
   return (
     <Wrapper sologan={"Save Post Page"}>
-      <div style={{ width: "90%", marginLeft: "80px" }}>
+      <div style={{ width: "90%", margin: "auto" }}>
         {posts.map((p) => (
           <Post post={p} key={p._id} />
         ))}

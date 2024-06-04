@@ -21,3 +21,78 @@
     }
   }
 }
+
+/* phone and table */
+@media (max-width: 1023px) {
+  .career .sections_career {
+    background-color: transparent;
+  }
+  .row .intro {
+    height: initial;
+    .left .imgContainer {
+      width: 400px;
+      height: 400px;
+    }
+    .right .wrapper {
+      padding-left: 25px;
+      h1 {
+        font-size: 45px;
+        margin-top: 0;
+      }
+      h2 {
+        font-size: 25px;
+      }
+      h3 {
+        font-size: 22px;
+      }
+    }
+    .right a {
+      position: absolute;
+      bottom: 10px;
+      left: 70%;
+      img {
+        width: 17px;
+      }
+    }
+  }
+
+  // .row .contact,
+  .row .portfolio,
+  .row .testimonials {
+    height: initial;
+    margin-bottom: 35px;
+  }
+  .row .testimonials {
+    margin-top: 30px;
+
+    .container {
+      align-items: self-start;
+      gap: 20px;
+      .card.featured {
+        width: initial;
+        height: initial;
+        margin: 0;
+        padding: 20px 10px;
+      }
+
+      .card .top img.left,
+      .card .top img.right {
+        height: 20px;
+      }
+      .card .top img.user {
+        height: 35px;
+        width: 35px;
+      }
+      .card .bottom h3,
+      .card .bottom h4 {
+        margin-bottom: 5px;
+        font-size: 20px;
+        margin-top: 10px;
+      }
+    }
+  }
+  .row .contact {
+    border-top: 1px solid #ccc;
+    padding-top: 50px;
+  }
+}

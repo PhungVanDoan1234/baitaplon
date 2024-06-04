@@ -17,6 +17,7 @@ import {
   PlaylistAdd,
   Map,
   PersonPinCircle,
+  Home,
 } from "@mui/icons-material";
 import CloseFriend from "../closeFriend/CloseFriend";
 import { Link } from "react-router-dom";
@@ -36,6 +37,12 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
+          <Link to="/">
+            <li className="sidebarListItem">
+              <Home className="sidebarIcon" />
+              <span className="sidebarListItemText">Home</span>
+            </li>
+          </Link>
           <Link to="/feedPage">
             <li className="sidebarListItem">
               <RssFeed className="sidebarIcon" />
@@ -101,12 +108,14 @@ export default function Sidebar() {
         <Link to="/otherUser">
           <div className="sidebarShowAll">Other user</div>
         </Link>
+        {/* <div className="otherUser"> */}
         <ul className="sidebarFriendList">
           {userOthers.slice(0, 8).map((u) => (
             <CloseFriend key={u._id} user={u} />
           ))}
         </ul>
       </div>
+      {/* </div> */}
     </div>
   );
 }

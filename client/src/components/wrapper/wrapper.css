@@ -11,3 +11,10 @@
 .wrapperContainer {
   flex: 7.5;
 }
+
+/* phone and table */
+@media (max-width: 1023px) {
+  .wrapperSideBar {
+    display: none;
+  }
+}

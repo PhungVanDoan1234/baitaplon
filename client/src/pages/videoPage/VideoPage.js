@@ -36,7 +36,7 @@ function VideoPage() {
     }
   };
   console.log(videoPost);
-  return (
+  return ( 
     <Wrapper sologan={"Video page"}>
       <div style={{ margin: "0 120px" }}>
         <input
@@ -47,7 +47,7 @@ function VideoPage() {
           style={{ outline: "none", border: "none", fontSize: "20px" }}
         />
         {(searchResult ? searchResult : videoPost).map((p) => (
-          <Post post={p} key={p?._id} />
+          <Post post={p} key={p?._id} /> 
         ))}
       </div>
     </Wrapper>

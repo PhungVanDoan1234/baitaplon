@@ -8,6 +8,7 @@ import {
   Notifications,
   Logout,
 } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AuthContext } from "../../context/AuthContext";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -21,6 +22,7 @@ export default function Topbar() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [clickSearchMobile, setclickSearchMobile] = useState(false);
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -55,7 +57,7 @@ export default function Topbar() {
     <div className="topbarContainer">
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">CodeCuaDoan</span>
+          <span className="logo">Social_D&T</span>
         </Link>
       </div>
       <div className="topbarCenter">
@@ -65,7 +67,11 @@ export default function Topbar() {
             className="custom-tippy"
             content={
               searchResults.length > 0 ? (
-                <div className="searchResults">
+                <div
+                  className={`searchResults ${
+                    clickSearchMobile && "mobisearch"
+                  }`}
+                >
                   {searchResults.map((user, index) => (
                     <Link
                       to={`/profile/${user.username}`}
@@ -128,11 +134,22 @@ export default function Topbar() {
               <Notifications />
             </Link>
           </div>
-          <div className="topbarIconItem" onClick={handleLogout}>
+          <div className="topbarIconItem  menuhead">
+            <Link
+              to="/bookmarks"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <MenuIcon />
+            </Link>
+          </div>
+          <div
+            className="topbarIconItem topbarIconItemLogout"
+            onClick={handleLogout}
+          >
             <Logout />
           </div>
         </div>
-        <Link to={`/profile/${currentUser.username}`}>
+        <Link to={`/profile/${currentUser.username}`} className="linkProfile">
           <img
             src={PF + userData.profilePicture}
             alt=""

@@ -197,6 +197,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
+
           {(post?.img?.endsWith("png") ||
             post?.img?.endsWith("jpg") ||
             post?.img?.endsWith("jpeg")) && (

@@ -99,81 +99,95 @@ export default function Profile() {
   };
 
   return (
-    <>
-      <Topbar />
-      <div className="profile">
-        <Sidebar />
-        <div className="profileRight">
-          <div className="profileRightTop">
-            <div className="profileCover">
-              {/* Cover */}
-              <Link target="_blank" to={PF + user?.coverPicture}>
-                <img
-                  className="profileCoverImg"
-                  src={
-                    user && user?.coverPicture
-                      ? PF + user?.coverPicture
-                      : `${PF}person/noCover.png`
-                  }
-                  alt=""
-                />
-              </Link>
-              <label htmlFor="fileCover">
-                {userData._id === user?._id && (
-                  <div className="changeCoverPicture">
-                    <InsertPhoto
-                      style={{ fontSize: "4rem" }}
-                      className="iconChangeCoverPicture"
-                    />
-                  </div>
-                )}
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  id="fileCover"
-                  accept=".png, .jpeg, .jpg"
-                  onChange={handleChangeCover}
-                />
-              </label>
-              {/* Avartar */}
-              <Link to={PF + user?.profilePicture} target="_blank">
-                <img
-                  className="profileUserImg"
-                  src={
-                    user && user?.profilePicture
-                      ? PF + user?.profilePicture
-                      : `${PF}person/noAvatar.png`
-                  }
-                  alt=""
-                />
-              </Link>
-              <label htmlFor="fileAvatar">
-                {userData._id === user?._id && (
-                  <div className="changeAvatar">
-                    <Person
-                      className="iconChangeAvatar"
-                      style={{ fontSize: "4rem" }}
-                    />
-                  </div>
-                )}
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  id="fileAvatar"
-                  accept=".png, .jpeg, .jpg"
-                  onChange={handleChangeAvatar}
-                />
-              </label>
-            </div>
-            <div className="profileInfo">
-              {user && (
-                <div className="profileInfo">
-                  <h4 className="profileInfoName">{user.username}</h4>
-                  <span className="profileInfoDesc">{user.desc}</span>
-                </div>
-              )}
-            </div>
+    <div className="container-fluid" style={{ padding: "0" }}>
+      <div className="row">
+        <Topbar />
+        <div className="profile">
+          <div className="col-lg-3">
+            <Sidebar />
           </div>
+          <div className="col-lg-9">
+            <div className="profileRight">
+              <div className="profileRightTop">
+                <div className="profileCover">
+                  {/* Cover */}
+                  <Link target="_blank" to={PF + user?.coverPicture}>
+                    <img
+                      className="profileCoverImg"
+                      src={
+                        user && user?.coverPicture
+                          ? PF + user?.coverPicture
+                          : `${PF}person/noCover.png`
+                      }
+                      alt=""
+                    />
+                  </Link>
+                  <label htmlFor="fileCover">
+                    {userData._id === user?._id && (
+                      <div className="changeCoverPicture">
+                        <InsertPhoto
+                          style={{ fontSize: "4rem" }}
+                          className="iconChangeCoverPicture"
+                        />
+                      </div>
+                    )}
+                    <input
+                      style={{ display: "none" }}
+                      type="file"
+                      id="fileCover"
+                      accept=".png, .jpeg, .jpg"
+                      onChange={handleChangeCover}
+                    />
+                  </label>
+                  {/* Avartar */}
+                  <Link to={PF + user?.profilePicture} target="_blank">
+                    <img
+                      className="profileUserImg"
+                      src={
+                        user && user?.profilePicture
+                          ? PF + user?.profilePicture
+                          : `${PF}person/noAvatar.png`
+                      }
+                      alt=""
+                    />
+                  </Link>
+                  <label htmlFor="fileAvatar">
+                    {userData._id === user?._id && (
+                      <div className="changeAvatar">
+                        <Person
+                          className="iconChangeAvatar"
+                          style={{ fontSize: "4rem" }}
+                        />
+                      </div>
+                    )}
+                    <input
+                      style={{ display: "none" }}
+                      type="file"
+                      id="fileAvatar"
+                      accept=".png, .jpeg, .jpg"
+                      onChange={handleChangeAvatar}
+                    />
+                  </label>
+                </div>
+                <div className="profileInfo">
+                  {user && (
+                    <div className="profileInfo">
+                      <h4 className="profileInfoName">{user.username}</h4>
+                      <span className="profileInfoDesc">{user.desc}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="profileRightBottom">
+                <div className="col-lg-8">
+                  <Feed username={username} />
+                </div>
+                <div className="col-lg-4">
+                  <Rightbar user={user} />
+                </div>
+              </div>
+            </div>
+          </div> 
           <h4 className="rightbarTitle">
             <div style={{ textAlign: "center" }}>
               {currentUser?._id === user?._id && (
@@ -213,9 +227,9 @@ export default function Profile() {
           <div className="profileRightBottom">
             <Feed username={username} />
             <Rightbar user={user} />
-          </div>
+          </div> 
         </div>
       </div>
-    </>
+    </div>
   );
 }

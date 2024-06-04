@@ -7,7 +7,7 @@ function CardUser({ userOther, currentUser, handleClick }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   console.log(userOther);
   return (
-    <Card style={{ width: "13em" }}>
+    <Card>
       <Link
         to={`/profile/${userOther?.username}`}
         style={{ textAlign: "center" }}

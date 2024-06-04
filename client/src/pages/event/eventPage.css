@@ -10,7 +10,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   width: 90%;
-  height: 50vh;
+  height: 300px;
 }
 
 .react-calendar__tile--active {
@@ -25,9 +25,11 @@
 }
 
 .textDataSchedule {
-  border: 1px solid gray;
+  border: 1px solid #ccc;
   width: 500px;
   margin: 20px 0;
+  border-radius: 5px;
+  resize: none;
 }
 
 .textDataSchedule:focus {
@@ -43,5 +45,40 @@
 }
 
 .buttonHandle {
-  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar .createEvent {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: end;
+  margin: 0 7% 1% 0;
+  button {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #fff;
+    background: var(--bs-blue);
+    box-shadow: 0 3px 5px #c1b5b5;
+    &:hover {
+      background: var(--bs-blue);
+    }
+  }
+}
+.eventlist {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  table {
+    width: 90%;
+    margin: auto;
+  }
+  table,
+  th,
+  td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    border-width: 1px;
+  }
 }

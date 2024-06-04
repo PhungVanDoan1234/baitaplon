@@ -17,24 +17,25 @@ function GameLists({ game, onHandle, onDelete, onUpdate }) {
       <Button
         onClick={() => setShowHandleGame(!showHandleGame)}
         className="buttonHandleGameAndTarget"
+        style={{ color: "#000", width: "100%" }}
       >
-        +
+        Hướng dẫn
       </Button>
       {currentUser.isAdmin && (
-        <>
+        <div className="activeDeletegame">
           <Button onClick={onDelete}>
             <Delete />
           </Button>
           <Button onClick={onUpdate}>
             <Update />
           </Button>
-        </>
+        </div>
       )}
       {showHandleGame && (
-        <>
+        <div style={{ padding: "0 10px" }}>
           <p>{game.target}</p>
           <p>{game.handle}</p>
-        </>
+        </div>
       )}
     </>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./tetris.css";
 
 const COLS = 10;
-const ROWS = 20;
+const ROWS = 10;
 const BLOCK_SIZE = 30;
 
 const SHAPES = [
