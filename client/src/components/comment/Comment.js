@@ -32,7 +32,7 @@ function Comment({ comment, onDelete, onUpdate }) {
         </div>
         <div className="commentTime">{format(comment?.createdAt)}</div>
       </div>
-      {user._id === currentUser._id && (
+      {(user._id === currentUser._id || currentUser.isAdmin) && (
         <div className="wrapperSettingComment">
           <button className="buttonSettingComment" onClick={onDelete}>
             <Delete />

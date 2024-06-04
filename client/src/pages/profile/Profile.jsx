@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import "./profile.css";
 import Topbar from "../../components/topbar/Topbar";
@@ -13,12 +13,21 @@ import {
   udpateCoverPicture,
   updateAvatar,
 } from "../../apiCall";
+import { Button } from "@mui/material";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user: currentUser } = useContext(AuthContext);
   const [user, setUser] = useState();
   const username = useParams().username;
   let userData = JSON.parse(localStorage.getItem("user"));
+  const [showUpdateInfo, setShowUpdateInfo] = useState(false);
+  const descInputRef = useRef();
+  const cityInputRef = useRef();
+  const fromInputRef = useRef();
+  const relationshipInputRef = useRef();
 
   useEffect(() => {
     getUserByName(username, setUser);
@@ -55,6 +64,37 @@ export default function Profile() {
       data.append("file", file);
       newUser.coverPicture = fileName;
       udpateCoverPicture(user?._id, newUser, fileName, setUser, data);
+    }
+  };
+
+  const handleUpdateInfo = async () => {
+    try {
+      const newUserInfo = currentUser?.isAdmin
+        ? {
+            isAdmin: currentUser?.isAdmin,
+          }
+        : {
+            userId: currentUser?._id,
+          };
+      if (descInputRef.current.value !== ("" && null))
+        newUserInfo.desc = descInputRef.current.value;
+      if (cityInputRef.current.value !== ("" && null))
+        newUserInfo.city = cityInputRef.current.value;
+      if (fromInputRef.current.value !== ("" && null))
+        newUserInfo.from = fromInputRef.current.value;
+      if (relationshipInputRef.current.value !== ("" && null))
+        newUserInfo.relationship = relationshipInputRef.current.value;
+      await axios.put(
+        `https://backenddofscocial-1.onrender.com/api/users/${currentUser?._id}`,
+        newUserInfo
+      );
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...newUserInfo,
+      }));
+      setShowUpdateInfo(false);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -147,7 +187,47 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
+          <h4 className="rightbarTitle">
+            <div style={{ textAlign: "center" }}>
+              {currentUser?._id === user?._id && (
+                <Button
+                  variant="contained"
+                  onClick={() => setShowUpdateInfo(!showUpdateInfo)}
+                >
+                  +
+                </Button>
+              )}
+              <br />
+              {showUpdateInfo && currentUser?._id === user?._id && (
+                <>
+                  <input ref={descInputRef} placeholder="Description" /> <br />
+                  <input ref={cityInputRef} placeholder="City" /> <br />
+                  <input ref={fromInputRef} placeholder="From:" /> <br />
+                  <select
+                    ref={relationshipInputRef}
+                    style={{
+                      padding: "15px 30px",
+                      border: "none",
+                      outline: "none",
+                    }}
+                  >
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="-">-</option>
+                  </select>
+                  {"====> "}
+                  <Button variant="contained" onClick={handleUpdateInfo}>
+                    Submit
+                  </Button>
+                </>
+              )}
+            </div>
+          </h4>
+          <div className="profileRightBottom">
+            <Feed username={username} />
+            <Rightbar user={user} />
+          </div> 
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ function EventPage() {
     const getDateSchedule = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/calendars/getAll/${currentUser._id}`
+          `https://backenddofscocial-1.onrender.com/api/calendars/getAll/${currentUser._id}`
         );
         setDateSchedules(res.data.reverse());
       } catch (err) {
@@ -43,7 +43,7 @@ function EventPage() {
         text: inputRef.current.value,
       };
       const res = await axios.post(
-        `http://localhost:8800/api/calendars/`,
+        `https://backenddofscocial-1.onrender.com/api/calendars/`,
         newDateSchedule
       );
       setDateSchedules([res.data, ...dateSchedules]);
@@ -63,7 +63,7 @@ function EventPage() {
         newDateSchedule.text = inputRef?.current?.value;
       if (date) newDateSchedule.date = date;
       await axios.put(
-        `http://localhost:8800/api/calendars/${d._id}`,
+        `https://backenddofscocial-1.onrender.com/api/calendars/${d._id}`,
         newDateSchedule
       );
       setDateSchedules(
@@ -87,11 +87,14 @@ function EventPage() {
 
   const hanldeDeleteDateSchedule = async (d) => {
     try {
-      await axios.delete(`http://localhost:8800/api/calendars/${d._id}`, {
-        data: {
-          userId: currentUser._id,
-        },
-      });
+      await axios.delete(
+        `https://backenddofscocial-1.onrender.com/api/calendars/${d._id}`,
+        {
+          data: {
+            userId: currentUser._id,
+          },
+        }
+      );
       setDateSchedules(
         dateSchedules.filter((dateSchedule) => dateSchedule._id !== d._id)
       );

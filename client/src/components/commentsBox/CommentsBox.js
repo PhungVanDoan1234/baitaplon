@@ -36,18 +36,12 @@ function CommentsBox({ post, sendDataToParent }) {
 
   const handleDelete = async (e, commentId) => {
     e.preventDefault();
-    deleteComment(commentId, currentUser._id, comments, setComments);
+    deleteComment(commentId, currentUser, comments, setComments);
   };
 
   const handleUpdate = async (e, commentId, UpdateText) => {
     e.preventDefault();
-    updateComment(
-      commentId,
-      UpdateText,
-      currentUser._id,
-      comments,
-      setComments
-    );
+    updateComment(commentId, UpdateText, currentUser, comments, setComments);
     setNewComent("");
   };
 

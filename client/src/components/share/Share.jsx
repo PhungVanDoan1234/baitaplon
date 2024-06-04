@@ -33,7 +33,6 @@ export default function Share({ sendDataToChildFromParent }) {
       upload(data);
     }
     createPost(newPost, userPostData, sendDataToChildFromParent);
-    console.log(file.type);
     setFile(null);
     desc.current.value = "";
     alert(
@@ -62,16 +61,16 @@ export default function Share({ sendDataToChildFromParent }) {
         <hr className="shareHr" />
         {file && (
           <div className="shareImgContainer">
-            {(file.type === "image/png" ||
-              file.type === "image/jpeg" ||
-              file.type === "image/jpeg") && (
+            {(file?.type === "image/png" ||
+              file?.type === "image/jpeg" ||
+              file?.type === "image/jpeg") && (
               <img
                 src={URL.createObjectURL(file)}
                 alt=""
                 className="shareImg"
               />
             )}
-            {file.type === "video/mp4" && (
+            {file?.type === "video/mp4" && (
               <video
                 controls
                 src={URL.createObjectURL(file)}

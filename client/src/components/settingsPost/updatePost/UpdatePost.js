@@ -22,8 +22,8 @@ export default function UpdatePost({
       userId: user._id,
       desc: desc.current.value,
     };
-    deleteFile(post.img);
     if (file) {
+      deleteFile(post.img);
       const data = new FormData();
       const fileName = Date.now() + file.name;
       data.append("name", fileName);

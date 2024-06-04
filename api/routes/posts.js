@@ -20,7 +20,7 @@ router.put("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     const newPost = req.body;
-    if (post.userId === req.body.userId) {
+    if (post.userId === req.body.userId || req.body.isAdmin) {
       await post.updateOne({ $set: newPost });
       res.status(200).json(newPost);
     } else {
@@ -35,7 +35,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    if (post.userId === req.body.userId) {
+    if (post.userId === req.body.userId || req.body.isAdmin) {
+      await User.updateMany(
+        {},
+        { $pull: { savePosts: req.params.id } },
+        { multi: true }
+      );
       await Comment.deleteMany({ postId: req.params.id });
       await post.deleteOne();
       res.status(200).json("the post has been deleted");
