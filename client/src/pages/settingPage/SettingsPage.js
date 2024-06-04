@@ -28,7 +28,7 @@ function SettingsPage() {
           password: password,
         };
         await axios.put(
-          `http://localhost:8800/api/users/${currentUser._id}`,
+          `https://backenddofscocial-1.onrender.com/api/users/${currentUser._id}`,
           data
         );
         localStorage.clear();
@@ -44,7 +44,7 @@ function SettingsPage() {
     if (window.confirm("bạn có chắc muốn xoá tài khoản chứ 😥😥😥 ")) {
       try {
         await axios.delete(
-          `http://localhost:8800/api/users/${currentUser._id}`,
+          `https://backenddofscocial-1.onrender.com/api/users/${currentUser._id}`,
           {
             data: {
               userId: currentUser._id,

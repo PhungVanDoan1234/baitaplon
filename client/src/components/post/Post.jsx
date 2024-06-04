@@ -89,7 +89,7 @@ export default function Post({ post, sendDataToChildFromParent }) {
     };
     try {
       await axios.put(
-        `http://localhost:8800/api/users/${currentUser._id}/savePost`,
+        `https://backenddofscocial-1.onrender.com/api/users/${currentUser._id}/savePost`,
         postData
       );
       if (save) {
@@ -125,7 +125,10 @@ export default function Post({ post, sendDataToChildFromParent }) {
           visibleComment: !showAndHideComments,
         };
     try {
-      await axios.put(`http://localhost:8800/api/posts/${post._id}`, newPost);
+      await axios.put(
+        `https://backenddofscocial-1.onrender.com/api/posts/${post._id}`,
+        newPost
+      );
       setHideComments(!hideComments);
     } catch (err) {
       console.log(err);

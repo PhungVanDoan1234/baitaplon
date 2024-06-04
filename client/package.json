@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "homepage": "https://PhungVanDoan1234.github.io/baitaplon",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fontsource/roboto": "^5.0.13",
@@ -17,6 +18,7 @@
     "@tippyjs/react": "^4.2.6",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "gh-pages": "^6.1.1",
     "ityped": "^1.0.3",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
@@ -41,7 +43,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

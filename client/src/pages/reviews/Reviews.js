@@ -20,7 +20,7 @@ function Reviews() {
     const getAllReviews = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/reviews/getAllReview`
+          `https://backenddofscocial-1.onrender.com/api/reviews/getAllReview`
         );
         setReviews(res.data.reverse());
       } catch (err) {
@@ -45,7 +45,10 @@ function Reviews() {
         data.append("file", file);
         newReview.img = fileName;
         try {
-          await axios.post("http://localhost:8800/api/upload", data);
+          await axios.post(
+            "https://backenddofscocial-1.onrender.com/api/upload",
+            data
+          );
           console.log("updateSuccess");
         } catch (err) {
           console.log(err);
@@ -53,7 +56,7 @@ function Reviews() {
       }
       try {
         const res = await axios.post(
-          `http://localhost:8800/api/reviews`,
+          `https://backenddofscocial-1.onrender.com/api/reviews`,
           newReview
         );
         setReviews([res.data, ...reviews]);
@@ -71,17 +74,22 @@ function Reviews() {
 
   const handleDelete = async (review) => {
     try {
-      await axios.delete(`http://localhost:8800/api/delete/${review.img}`);
+      await axios.delete(
+        `https://backenddofscocial-1.onrender.com/api/delete/${review.img}`
+      );
     } catch (err) {
       console.log(err);
     }
     try {
-      axios.delete(`http://localhost:8800/api/reviews/${review._id}`, {
-        data: {
-          userId: currentUser._id,
-          isAdmin: currentUser.isAdmin,
-        },
-      });
+      axios.delete(
+        `https://backenddofscocial-1.onrender.com/api/reviews/${review._id}`,
+        {
+          data: {
+            userId: currentUser._id,
+            isAdmin: currentUser.isAdmin,
+          },
+        }
+      );
       setReviews(reviews.filter((r) => r._id !== review._id));
     } catch (err) {
       console.log(err);
@@ -106,7 +114,9 @@ function Reviews() {
       }
 
       try {
-        await axios.delete(`http://localhost:8800/api/delete/${review.img}`);
+        await axios.delete(
+          `https://backenddofscocial-1.onrender.com/api/delete/${review.img}`
+        );
       } catch (err) {
         console.log(err);
       }
@@ -117,14 +127,20 @@ function Reviews() {
         data.append("file", file);
         newReview.img = fileName;
         try {
-          await axios.post("http://localhost:8800/api/upload", data);
+          await axios.post(
+            "https://backenddofscocial-1.onrender.com/api/upload",
+            data
+          );
           console.log("updateSuccess");
         } catch (err) {
           console.log(err);
         }
       }
       try {
-        axios.put(`http://localhost:8800/api/reviews/${review._id}`, newReview);
+        axios.put(
+          `https://backenddofscocial-1.onrender.com/api/reviews/${review._id}`,
+          newReview
+        );
         setReviews(
           reviews.map((r) => {
             if (r._id === review._id) {

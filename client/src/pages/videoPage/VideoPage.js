@@ -12,7 +12,7 @@ function VideoPage() {
     const getAllPost = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8800/api/posts/getPost/All"
+          "https://backenddofscocial-1.onrender.com/api/posts/getPost/All"
         );
         setPosts(res.data);
       } catch (err) {

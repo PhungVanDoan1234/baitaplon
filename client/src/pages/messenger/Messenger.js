@@ -56,7 +56,7 @@ export default function Messenger() {
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/conversations/${user._id}`
+          `https://backenddofscocial-1.onrender.com/api/conversations/${user._id}`
         );
         setConversations(res.data);
       } catch (err) {
@@ -71,7 +71,7 @@ export default function Messenger() {
       if (currentChat) {
         try {
           const res = await axios.get(
-            `http://localhost:8800/api/messages/${currentChat._id}`
+            `https://backenddofscocial-1.onrender.com/api/messages/${currentChat._id}`
           );
           setMessages(res.data);
         } catch (err) {
@@ -102,7 +102,7 @@ export default function Messenger() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8800/api/messages",
+        "https://backenddofscocial-1.onrender.com/api/messages",
         message
       );
       setMessages([...messages, res.data]);

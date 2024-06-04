@@ -11,7 +11,7 @@ function SavePostPage() {
     const getAllSavePost = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/users/${currentUser._id}/getAllSavePost`
+          `https://backenddofscocial-1.onrender.com/api/users/${currentUser._id}/getAllSavePost`
         );
         setPosts(res.data);
       } catch (err) {

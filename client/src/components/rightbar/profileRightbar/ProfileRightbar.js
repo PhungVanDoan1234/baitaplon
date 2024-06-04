@@ -24,7 +24,10 @@ function ProfileRightbar({ user, friends }) {
           senderId: currentUser._id,
           receiverId: user._id,
         };
-        await axios.post(`http://localhost:8800/api/conversations/`, data);
+        await axios.post(
+          `https://backenddofscocial-1.onrender.com/api/conversations/`,
+          data
+        );
       } catch (err) {
         console.log(err);
       }
@@ -36,7 +39,7 @@ function ProfileRightbar({ user, friends }) {
     const handleCoversation = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/conversations/${currentUser._id}`
+          `https://backenddofscocial-1.onrender.com/api/conversations/${currentUser._id}`
         );
         setConversation(res.data);
       } catch (err) {
@@ -49,11 +52,14 @@ function ProfileRightbar({ user, friends }) {
   const hanldeDeleteAcoutOfUser = async () => {
     if (window.confirm("you sure!!!")) {
       try {
-        await axios.delete(`http://localhost:8800/api/users/${user._id}`, {
-          data: {
-            isAdmin: currentUser.isAdmin,
-          },
-        });
+        await axios.delete(
+          `https://backenddofscocial-1.onrender.com/api/users/${user._id}`,
+          {
+            data: {
+              isAdmin: currentUser.isAdmin,
+            },
+          }
+        );
       } catch (err) {
         console.log(err);
       }

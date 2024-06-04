@@ -10,7 +10,8 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
   useEffect(() => {
     const getFriends = async () => {
       const res = await axios.get(
-        "http://localhost:8800/api/users/friends/" + currentId
+        "https://backenddofscocial-1.onrender.com/api/users/friends/" +
+          currentId
       );
       setFriends(res.data);
     };
@@ -25,7 +26,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
   const handleClick = async (user) => {
     try {
       const res = await axios.get(
-        `http://localhost:8800/api/conversations/find/${currentId}/${user._id}`
+        `https://backenddofscocial-1.onrender.com/api/conversations/find/${currentId}/${user._id}`
       );
       setCurrentChat(res.data);
     } catch (err) {
